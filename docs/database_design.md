@@ -170,7 +170,7 @@ Defines subjects taught in the system.
 | Field        | Type          | Constraints                        |
 |--------------|---------------|-------------------------------------|
 | `subject_id` | INTEGER       | PK, Auto-increment                 |
-| `class_id`   | INTEGER       | FK → Department(department_id)     |
+| `department_id`   | INTEGER       | FK → Department(department_id)     |
 | `name`       | VARCHAR(50)   | NOT NULL                           |
 | `description`| TEXT          | NULLABLE                           |
 
