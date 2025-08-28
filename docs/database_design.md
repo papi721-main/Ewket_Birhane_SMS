@@ -7,51 +7,96 @@ Here is the ERD diagram for reference:
 ![ERD Diagram](./ERD5-final.png)
 
 ---
-
-## 🧑‍💻 User and Role Management
+## 🧑‍ User Management
 
 ### `User`
 
-Stores authentication and general identity information for all system users.
+Stores account information for all system users (students, teachers, staff, admins).
 
-| Field          | Type         | Constraints                 |
-| -------------- | ------------ | --------------------------- |
-| `user_id`      | INTEGER      | PK, Auto-increment          |
-| `username`     | VARCHAR(50)  | UNIQUE, NOT NULL            |
-| `password`     | TEXT         | NOT NULL                    |
-| `first_name`   | VARCHAR(50)  | NOT NULL                    |
-| `last_name`    | VARCHAR(50)  | NOT NULL                    |
-| `email`        | VARCHAR(100) | NULLABLE                    |
-| `phone_number` | VARCHAR(20)  | NULLABLE                    |
-| `address`      | TEXT         | NULLABLE                    |
-| `is_active`    | BOOLEAN      | DEFAULT TRUE                |
-| `created_at`   | DATETIME     | DEFAULT CURRENT_TIMESTAMP   |
-| `modified_at`  | DATETIME     | ON UPDATE CURRENT_TIMESTAMP |
+| Field          | Data Type | Constraints                        |
+| -------------- | --------- | ---------------------------------- |
+| `user_id`      | Integer   | PK, Auto-increment                 |
+| `contact_id`   | Integer   | FK → Emergency_Contact(contact_id) |
+| `address_id`   | Integer   | FK → Address(address_id)           |
+| `username`     | Text      | UNIQUE, NOT NULL                   |
+| `password`     | Text      | NOT NULL                           |
+| `first_name`   | Text      | NOT NULL                           |
+| `last_name`    | Text      | NOT NULL                           |
+| `email`        | Text      | UNIQUE, NOT NULL                   |
+| `phone_number` | Text      | NOT NULL                           |
+| `is_active`    | Boolean   | Default: true                      |
+| `created_at`   | Timestamp | Default: CURRENT_TIMESTAMP         |
+| `modified_at`  | Timestamp | On update: CURRENT_TIMESTAMP       |
+***🔗 Relationships:***
+
+- One-to-One → Student_Profile, Teacher_Profile, Staff_Profile
+- One-to-Many → Emergency_Contact
+- One-to-One → Address
+
+---
+### `Emergency_Contact`
+
+Stores emergency contact info for users.
+
+| Field          | Data Type | Constraints                  |
+| -------------- | --------- | ---------------------------- |
+| `contact_id`   | Integer   | PK, Auto-increment           |
+| `user_id`      | Integer   | FK → User(user_id), NOT NULL |
+| `address_id`   | Integer   | FK → Address(address_id)     |
+| `first_name`   | Text      | NOT NULL                     |
+| `last_name`    | Text      | NOT NULL                     |
+| `email`        | Text      |                              |
+| `relationship` | Text      | (e.g. parent, guardian)      |
+| `phone_number` | Text      | NOT NULL                     |
+| `created_at`   | Timestamp | Default: CURRENT_TIMESTAMP   |
+| `modified_at`  | Timestamp | On update: CURRENT_TIMESTAMP |
+***🔗 Relationships:***
+
+- Many-to-One → User
+- One-to-One → Address
+
+---
+### `Address`
+
+Stores address data in a query-able structure (Ethiopian context).
+
+| Field         | Data Type | Constraints         |
+| ------------- | --------- | ------------------- |
+| `address_id`  | Integer   | PK, Auto-increment  |
+| `street_name` | Text      |                     |
+| `woreda`      | Text      |                     |
+| `sub_city`    | Text      |                     |
+| `city`        | Text      | NOT NULL            |
+| `country`     | Text      | Default: 'Ethiopia' |
+***🔗 Relationships:***
+- One-to-One → User
+- One-to-One → Emergency_Contact
 
 ---
 ### `Role`
 
-Defines user roles in the system.
+Defines access roles.
 
-| Field       | Type         | Constraints               |
-|-------------|--------------|----------------------------|
-| `role_id`   | INTEGER      | PK, Auto-increment         |
-| `name`      | VARCHAR(30)  | UNIQUE, NOT NULL           |
-| `description`| TEXT        | NULLABLE                   |
+| Field         | Data Type | Constraints                   |
+| ------------- | --------- | ----------------------------- |
+| `role_id`     | Integer   | PK, Auto-increment            |
+| `name`        | Text      | UNIQUE (Student, Admin, etc.) |
+| `description` | Text      |                               |
 
 ---
+
 ### `User_Role`
 
 Associative entity that maps users to roles (many-to-many relationship).
 
-| Field         | Type      | Constraints                   |
-|---------------|-----------|-------------------------------|
-| `user_role_id`| INTEGER   | PK, Auto-increment            |
-| `user_id`     | INTEGER   | FK → User(user_id), NOT NULL |
-| `role_id`     | INTEGER   | FK → Role(role_id), NOT NULL |
+| Field          | Data Type | Constraints        |
+| -------------- | --------- | ------------------ |
+| `user_role_id` | Integer   | PK, Auto-increment |
+| `user_id`      | Integer   | FK → User          |
+| `role_id`      | Integer   | FK → Role          |
 
 ---
-## 🧑‍🎓 User Profiles
+## 👨‍🏫  User Profiles
 
 ### `Student_Profile`
 
