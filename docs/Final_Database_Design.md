@@ -98,7 +98,7 @@ Stores extended student-specific data.
 | Field        | Type    | Constraints            | Description                            |
 | ------------ | ------- | ---------------------- | -------------------------------------- |
 | `student_id` | INTEGER | PK, FK → User(user_id) | Same as user_id, acts as PK and FK     |
-| `batch_id`   | INTEGER | FK → Batch(batch_id)   | The batch to which the student belongs |
+| `batch_id`   | INTEGER | FK → Batch(batch_id), NULLABLE   | The batch to which the student belongs |
 | `joined_at`  | DATE    |                | Date the student joined                |
 | `created_at`      | DATETIME    | DEFAULT CURRENT_TIMESTAMP                          | Timestamp                                                   |
 | `modified_at`     | DATETIME    | ON UPDATE CURRENT_TIMESTAMP                        | Timestamp                                                   |
