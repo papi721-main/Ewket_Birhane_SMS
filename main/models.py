@@ -56,3 +56,15 @@ class Role(models.Model):
     description = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
     modified_at = models.DateTimeField(auto_now=True)
+    users = models.ManyToManyField(
+        User, through="User_Role", related_name="roles"
+    )
+
+
+class User_Role(models.Model):
+    """Model representing a user-role relationship."""
+
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    role = models.ForeignKey(Role, on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
+    modified_at = models.DateTimeField(auto_now=True)
