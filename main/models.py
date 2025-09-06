@@ -47,3 +47,12 @@ class Address(models.Model):
     country = models.CharField(max_length=100)
     created_at = models.DateTimeField(auto_now_add=True)
     modified_at = models.DateTimeField(auto_now=True)
+
+
+class Role(models.Model):
+    """Model representing a role in the system."""
+
+    name = models.CharField(max_length=100, unique=True)
+    description = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    modified_at = models.DateTimeField(auto_now=True)
