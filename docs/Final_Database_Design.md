@@ -21,12 +21,12 @@ Stores account information for all system users (students, teachers, staff, admi
 | `first_name`    | Text      | NOT NULL                     | First name of the user                         |
 | `last_name`     | Text      | NOT NULL                     | Last name of the user                          |
 | `date_of_birth` | DATE      | NOT NULL                     | Date of birth                                  |
-| `age`           | Integer   | NOT NULL                     | Age of user, calculated from date of birth     |
-| `email`         | Text      | UNIQUE, NOT NULL             | User email address                             |
+| `age`           | Integer   |                      | Age of user, calculated from date of birth     |
+| `email`         | Text      |              | User email address                             |
 | `phone_number`  | Text      | NOT NULL                     | User phone number                              |
 | `is_active`     | Boolean   | Default: true                | Boolean to indicate whether the user is active |
-| `created_at`    | Timestamp | Default: CURRENT_TIMESTAMP   | Timestamp                                      |
-| `modified_at`   | Timestamp | On update: CURRENT_TIMESTAMP | Timestamp                                      |
+| `created_at`      | DATETIME    | DEFAULT CURRENT_TIMESTAMP                          | Timestamp                                                   |
+| `modified_at`     | DATETIME    | ON UPDATE CURRENT_TIMESTAMP                        | Timestamp                                                   |
 
 ---
 ### Table: `Emergency_Contact`
@@ -40,10 +40,10 @@ Stores emergency contact info for users.
 | `first_name`   | Text      | NOT NULL                     | First name of contact           |
 | `last_name`    | Text      | NOT NULL                     | Last name of contact            |
 | `email`        | Text      |                              | Contact email                   |
-| `relationship` | Text      | (e.g. parent, guardian)      | Relationship to the user        |
+| `relationship` | Text      |       | Relationship to the user        |
 | `phone_number` | Text      | NOT NULL                     | Phone number                    |
-| `created_at`   | Timestamp | Default: CURRENT_TIMESTAMP   | Timestamp                       |
-| `modified_at`  | Timestamp | On update: CURRENT_TIMESTAMP | Timestamp                       |
+| `created_at`      | DATETIME    | DEFAULT CURRENT_TIMESTAMP                          | Timestamp                                                   |
+| `modified_at`     | DATETIME    | ON UPDATE CURRENT_TIMESTAMP                        | Timestamp                                                   |
 
 ---
 ### Table: `Address`
@@ -55,9 +55,9 @@ Stores address data in a query-able structure (Ethiopian context).
 | `address_id`  | Integer   | PK, Auto-increment                             | Unique ID      |
 | `user_id`     | Integer   | FK → User(user_id), NULLABLE                   | Linked user    |
 | `contact_id`  | Integer   | FK → Emergency_Contact(`contact_id`), NULLABLE | Linked contact |
-| `street_name` | Text      | NULLABLE                                       | Street name    |
-| `woreda`      | Integer   | NULLABLE                                       | Woreda         |
-| `sub_city`    | Text      | NULLABLE                                       | Sub-city       |
+| `street_name` | Text      |                                        | Street name    |
+| `woreda`      | Integer   |                                        | Woreda         |
+| `sub_city`    | Text      | NOT NULL                                       | Sub-city       |
 | `city`        | Text      | NOT NULL                                       | City           |
 | `country`     | Text      | Default: 'Ethiopia'                            | Country        |
 
@@ -95,7 +95,7 @@ Stores extended student-specific data.
 | ------------ | ------- | ---------------------- | -------------------------------------- |
 | `student_id` | INTEGER | PK, FK → User(user_id) | Same as user_id, acts as PK and FK     |
 | `batch_id`   | INTEGER | FK → Batch(batch_id)   | The batch to which the student belongs |
-| `joined_at`  | DATE    | NULLABLE               | Date the student joined                |
+| `joined_at`  | DATE    |                | Date the student joined                |
 
 ---
 ### Table: `Teacher_Profile`
@@ -105,8 +105,8 @@ Stores extended teacher-specific data.
 | Field        | Type    | Constraints            | Description                        |
 | ------------ | ------- | ---------------------- | ---------------------------------- |
 | `teacher_id` | INTEGER | PK, FK → User(user_id) | Same as user_id, acts as PK and FK |
-| `start_date` | DATE    | NULLABLE               | Start date of teaching             |
-| `remark`     | TEXT    | NULLABLE               | Additional notes                   |
+| `start_date` | DATE    |                | Start date of teaching             |
+| `remark`     | TEXT    |                | Additional notes                   |
 
 ---
 ### Table: `Staff_Profile`
@@ -116,8 +116,8 @@ Stores extended staff-specific data (Admin, Coordinator, etc.).
 | Field        | Type    | Constraints            | Description                        |
 | ------------ | ------- | ---------------------- | ---------------------------------- |
 | `staff_id`   | INTEGER | PK, FK → User(user_id) | Same as user_id, acts as PK and FK |
-| `start_date` | DATE    | NULLABLE               | Start date of staff                |
-| `remark`     | TEXT    | NULLABLE               | Additional notes                   |
+| `start_date` | DATE    |                | Start date of staff                |
+| `remark`     | TEXT    |                | Additional notes                   |
 
 ---
 ## 🎓 Academic Structuring
@@ -131,10 +131,10 @@ Groups students into cohorts (e.g. `Grade7_2024`).
 | `batch_id`    | INTEGER     | PK               | Unique identifier                                                   |
 | `name`        | VARCHAR(50) | UNIQUE, NOT NULL | Computed name from grade level and start year (e.g., `Grade7_2024`) |
 | `start_date`  | DATE        | NOT NULL         | Date when batch started                                             |
-| `end_date`    | DATE        | NULLABLE         | Optional date when the batch ended enrollment                       |
+| `end_date`    | DATE        |          | Optional date when the batch ended enrollment                       |
 | `level`       | INTEGER     | NOT NULL         | Grade level (e.g., 7, 8, 9)                                         |
-| `description` | TEXT        | NULLABLE         | Details about the batch                                             |
-| `remark`      | TEXT        | NULLABLE         | Extra notes on the batch                                            |
+| `description` | TEXT        |          | Details about the batch                                             |
+| `remark`      | TEXT        |          | Extra notes on the batch                                            |
 
 ---
 ### Table: `Department`
@@ -145,7 +145,7 @@ Defines academic departments (e.g. Theology, Mezmur).
 | --------------- | ----------- | ---------------- | ---------------------- |
 | `department_id` | INTEGER     | PK               | Unique identifier      |
 | `name`          | VARCHAR(50) | UNIQUE, NOT NULL | Name of the department |
-| `description`   | TEXT        | NULLABLE         | Department description |
+| `description`   | TEXT        |          | Department description |
 
 ---
 ### Table: `Subject`
@@ -155,9 +155,9 @@ Defines subjects taught in the system.
 | Field           | Type        | Constraints                      | Description                                     |
 | --------------- | ----------- | -------------------------------- | ----------------------------------------------- |
 | `subject_id`    | INTEGER     | PK, Auto-increment               | Unique identifier                               |
-| `department_id` | INTEGER     | FK → Department(`department_id`) | The department the course belongs to            |
+| `department_id` | INTEGER     | FK → Department(`department_id`), NULLABLE | The department the course belongs to            |
 | `name`          | VARCHAR(50) | NOT NULL                         | Name of the subject (e.g., Bible Study, Mezmur) |
-| `description`   | TEXT        | NULLABLE                         | Description on the subject                      |
+| `description`   | TEXT        |                          | Description on the subject                      |
 
 ---
 ## 📚 Course & Enrollment
@@ -173,10 +173,10 @@ Represents a subject offered to a batch in a specific year/semester.
 | `teacher_id`  | INTEGER  | FK → Teacher_Profile(`teacher_id`), NOT NULL | The teacher assigned to the course  |
 | `batch_id`    | INTEGER  | FK → Batch(`batch_id`), NOT NULL             | The student batch taking the course |
 | `staff_id`    | INTEGER  | FK → Staff_Profile(`staff_id`), NULLABLE     | The staff assigned to the course    |
-| `description` | TEXT     | NULLABLE                                     | Brief course summary                |
-| `semester`    | INTEGER  | CHECK (semester IN (1, 2)), NOT NULL         | Semester number (1 or 2)            |
+| `description` | TEXT     |                                      | Brief course summary                |
+| `semester`    | INTEGER  | NOT NULL         | Semester number (1 or 2)            |
 | `year`        | INTEGER  | NOT NULL                                     | Academic year                       |
-| `remarks`     | TEXT     | NULLABLE                                     | Extra notes                         |
+| `remarks`     | TEXT     |                                      | Extra notes                         |
 | `created_at`  | DATETIME | DEFAULT CURRENT_TIMESTAMP                    | Timestamp                           |
 | `modified_at` | DATETIME | ON UPDATE CURRENT_TIMESTAMP                  | Timestamp                           |
 
@@ -192,11 +192,11 @@ Tracks student enrollment information in a course.
 | `enrollment_id`   | INTEGER     | PK, Auto-increment                                 | Unique ID                                                   |
 | `student_id`      | INTEGER     | FK → Student_Profile(student_id)                   | The student                                                 |
 | `course_id`       | INTEGER     | FK → Course(course_id)                             | The course                                                  |
-| `enrollment_date` | DATE        | NULLABLE                                           | Date enrolled                                               |
-| `status`          | VARCHAR(20) | CHECK (status IN ('Active','Completed','Dropped')) | Status of the enrollment (e.g., Active, Completed, Dropped) |
-| `grade`           | FLOAT       | NULLABLE                                           | Final grade                                                 |
-| `rank`            | INTEGER     | NULLABLE                                           | Class rank                                                  |
-| `remark`          | TEXT        | NULLABLE                                           | Additional Notes                                            |
+| `enrollment_date` | DATE        |                                            | Date enrolled                                               |
+| `status`          | VARCHAR(20) |  | Status of the enrollment (e.g., Active, Completed, Dropped) |
+| `grade`           | FLOAT       |                                            | Final grade                                                 |
+| `rank`            | INTEGER     |                                            | Class rank                                                  |
+| `remark`          | TEXT        |                                            | Additional Notes                                            |
 | `created_at`      | DATETIME    | DEFAULT CURRENT_TIMESTAMP                          | Timestamp                                                   |
 | `modified_at`     | DATETIME    | ON UPDATE CURRENT_TIMESTAMP                        | Timestamp                                                   |
 
@@ -215,9 +215,10 @@ Stores individual scores for a student's course performance.
 | `score`         | FLOAT       | NOT NULL                       | Score achieved                                                                                                   |
 | `total_score`   | FLOAT       | NOT NULL                       | Total Score of the assessment (e.g. if the student score 30/50, here the `score` is 30, and `total_score` is 50) |
 | `given_at`      | DATE        | NOT NULL                       | Date assessment was given                                                                                        |
-| `remarks`       | TEXT        | NULLABLE                       | Additional Notes                                                                                                 |
+| `remarks`       | TEXT        |                        | Additional Notes                                                                                                 |
 | `created_at`    | DATETIME    | DEFAULT CURRENT_TIMESTAMP      | Timestamp                                                                                                        |
 | `modified_at`   | DATETIME    | ON UPDATE CURRENT_TIMESTAMP    | Timestamp                                                                                                        |
+
 
 ---
 ## 🔗 Relationships Summary
