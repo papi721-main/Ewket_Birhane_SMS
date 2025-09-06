@@ -31,3 +31,19 @@ class Emergency_Contact(models.Model):
     email = models.EmailField(blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     modified_at = models.DateTimeField(auto_now=True)
+
+
+class Address(models.Model):
+    """Model representing an address for a user or an emergency contact."""
+
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
+    emergency_contact = models.ForeignKey(
+        Emergency_Contact, on_delete=models.CASCADE, null=True
+    )
+    street_address = models.CharField(max_length=255)
+    woreda = models.IntegerField()
+    sub_city = models.CharField(max_length=100)
+    city = models.CharField(max_length=100)
+    country = models.CharField(max_length=100)
+    created_at = models.DateTimeField(auto_now_add=True)
+    modified_at = models.DateTimeField(auto_now=True)
