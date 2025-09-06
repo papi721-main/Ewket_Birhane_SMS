@@ -71,6 +71,8 @@ Defines access roles.
 | `role_id`     | Integer   | PK, Auto-increment            | Unique ID for the role                                      |
 | `name`        | Text      | UNIQUE (Student, Admin, etc.) | Name of the role (e.g., Student, Teacher, Assistant, Admin) |
 | `description` | Text      |                               | Description of the role                                     |
+| `created_at`      | DATETIME    | DEFAULT CURRENT_TIMESTAMP                          | Timestamp                                                   |
+| `modified_at`     | DATETIME    | ON UPDATE CURRENT_TIMESTAMP                        | Timestamp                                                   |
 
 ---
 
@@ -83,6 +85,8 @@ Associative entity that maps users to roles (many-to-many relationship).
 | `user_role_id` | Integer   | PK, Auto-increment | Unique identifier   |
 | `user_id`      | Integer   | FK → User          | The associated user |
 | `role_id`      | Integer   | FK → Role          | The associated role |
+| `created_at`      | DATETIME    | DEFAULT CURRENT_TIMESTAMP                          | Timestamp                                                   |
+| `modified_at`     | DATETIME    | ON UPDATE CURRENT_TIMESTAMP                        | Timestamp                                                   |
 
 ---
 ## 👨‍🏫  User Profiles
@@ -96,6 +100,8 @@ Stores extended student-specific data.
 | `student_id` | INTEGER | PK, FK → User(user_id) | Same as user_id, acts as PK and FK     |
 | `batch_id`   | INTEGER | FK → Batch(batch_id)   | The batch to which the student belongs |
 | `joined_at`  | DATE    |                | Date the student joined                |
+| `created_at`      | DATETIME    | DEFAULT CURRENT_TIMESTAMP                          | Timestamp                                                   |
+| `modified_at`     | DATETIME    | ON UPDATE CURRENT_TIMESTAMP                        | Timestamp                                                   |
 
 ---
 ### Table: `Teacher_Profile`
@@ -107,6 +113,8 @@ Stores extended teacher-specific data.
 | `teacher_id` | INTEGER | PK, FK → User(user_id) | Same as user_id, acts as PK and FK |
 | `start_date` | DATE    |                | Start date of teaching             |
 | `remark`     | TEXT    |                | Additional notes                   |
+| `created_at`      | DATETIME    | DEFAULT CURRENT_TIMESTAMP                          | Timestamp                                                   |
+| `modified_at`     | DATETIME    | ON UPDATE CURRENT_TIMESTAMP                        | Timestamp                                                   |
 
 ---
 ### Table: `Staff_Profile`
@@ -118,6 +126,8 @@ Stores extended staff-specific data (Admin, Coordinator, etc.).
 | `staff_id`   | INTEGER | PK, FK → User(user_id) | Same as user_id, acts as PK and FK |
 | `start_date` | DATE    |                | Start date of staff                |
 | `remark`     | TEXT    |                | Additional notes                   |
+| `created_at`      | DATETIME    | DEFAULT CURRENT_TIMESTAMP                          | Timestamp                                                   |
+| `modified_at`     | DATETIME    | ON UPDATE CURRENT_TIMESTAMP                        | Timestamp                                                   |
 
 ---
 ## 🎓 Academic Structuring
@@ -135,6 +145,8 @@ Groups students into cohorts (e.g. `Grade7_2024`).
 | `level`       | INTEGER     | NOT NULL         | Grade level (e.g., 7, 8, 9)                                         |
 | `description` | TEXT        |          | Details about the batch                                             |
 | `remark`      | TEXT        |          | Extra notes on the batch                                            |
+| `created_at`      | DATETIME    | DEFAULT CURRENT_TIMESTAMP                          | Timestamp                                                   |
+| `modified_at`     | DATETIME    | ON UPDATE CURRENT_TIMESTAMP                        | Timestamp                                                   |
 
 ---
 ### Table: `Department`
@@ -146,6 +158,8 @@ Defines academic departments (e.g. Theology, Mezmur).
 | `department_id` | INTEGER     | PK               | Unique identifier      |
 | `name`          | VARCHAR(50) | UNIQUE, NOT NULL | Name of the department |
 | `description`   | TEXT        |          | Department description |
+| `created_at`      | DATETIME    | DEFAULT CURRENT_TIMESTAMP                          | Timestamp                                                   |
+| `modified_at`     | DATETIME    | ON UPDATE CURRENT_TIMESTAMP                        | Timestamp                                                   |
 
 ---
 ### Table: `Subject`
@@ -158,6 +172,8 @@ Defines subjects taught in the system.
 | `department_id` | INTEGER     | FK → Department(`department_id`), NULLABLE | The department the course belongs to            |
 | `name`          | VARCHAR(50) | NOT NULL                         | Name of the subject (e.g., Bible Study, Mezmur) |
 | `description`   | TEXT        |                          | Description on the subject                      |
+| `created_at`      | DATETIME    | DEFAULT CURRENT_TIMESTAMP                          | Timestamp                                                   |
+| `modified_at`     | DATETIME    | ON UPDATE CURRENT_TIMESTAMP                        | Timestamp                                                   |
 
 ---
 ## 📚 Course & Enrollment
