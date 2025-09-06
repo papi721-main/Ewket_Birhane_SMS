@@ -227,7 +227,7 @@ Stores individual scores for a student's course performance.
 
 - `User` → `Teacher_Profile`
 - `User` → `Student_Profile`
-- `User` → `Staff_Profile
+- `User` → `Staff_Profile`
 - `Student_Profile` → `Batch`
 
 ### One-to-Many
