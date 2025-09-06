@@ -81,3 +81,17 @@ class Batch(models.Model):
     remarks = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
     modified_at = models.DateTimeField(auto_now=True)
+
+
+class Student_Profile(models.Model):
+    """Model representing a student profile."""
+
+    user = models.OneToOneField(
+        User, on_delete=models.CASCADE, primary_key=True
+    )  # If a user is deleted, the student profile is deleted
+    batch = models.OneToOneField(
+        Batch, on_delete=models.SET_NULL, null=True
+    )  # If a batch is deleted, the student profile is set to null
+    joined_at = models.DateField(null=True, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    modified_at = models.DateTimeField(auto_now=True)
