@@ -23,7 +23,9 @@ class User(models.Model):
 class Emergency_Contact(models.Model):
     """Model representing an emergency contact for a user."""
 
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(
+        User, on_delete=models.CASCADE
+    )  # if a user is deleted, the corresponding emergency contact is deleted
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
     relationship = models.CharField(max_length=100)
@@ -36,10 +38,12 @@ class Emergency_Contact(models.Model):
 class Address(models.Model):
     """Model representing an address for a user or an emergency contact."""
 
-    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
+    user = models.ForeignKey(
+        User, on_delete=models.CASCADE, null=True
+    )  # If a user is deleted, the corresponding address is deleted
     emergency_contact = models.ForeignKey(
         Emergency_Contact, on_delete=models.CASCADE, null=True
-    )
+    )  # If an emergency contact is deleted, the corresponding address is deleted
     street_address = models.CharField(max_length=255)
     woreda = models.IntegerField()
     sub_city = models.CharField(max_length=100)
@@ -64,8 +68,12 @@ class Role(models.Model):
 class User_Role(models.Model):
     """Model representing a user-role relationship."""
 
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    role = models.ForeignKey(Role, on_delete=models.CASCADE)
+    user = models.ForeignKey(
+        User, on_delete=models.CASCADE
+    )  # If a user is deleted, the user-role relationship is deleted
+    role = models.ForeignKey(
+        Role, on_delete=models.CASCADE
+    )  # If a role is deleted, the user-role relationship is deleted
     created_at = models.DateTimeField(auto_now_add=True)
     modified_at = models.DateTimeField(auto_now=True)
 
