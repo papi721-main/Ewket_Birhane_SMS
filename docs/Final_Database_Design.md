@@ -55,8 +55,8 @@ Stores address data in a query-able structure (Ethiopian context).
 | `address_id`  | Integer   | PK, Auto-increment                             | Unique ID      |
 | `user_id`     | Integer   | FK → User(user_id), NULLABLE                   | Linked user    |
 | `contact_id`  | Integer   | FK → Emergency_Contact(`contact_id`), NULLABLE | Linked contact |
-| `street_name` | Text      |                                        | Street name    |
-| `woreda`      | Integer   |                                        | Woreda         |
+| `street_name` | Text      | NOT NULL                                  | Street name    |
+| `woreda`      | Integer   | NOT NULL                                       | Woreda         |
 | `sub_city`    | Text      | NOT NULL                                       | Sub-city       |
 | `city`        | Text      | NOT NULL                                       | City           |
 | `country`     | Text      | Default: 'Ethiopia'                            | Country        |
