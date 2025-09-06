@@ -18,3 +18,16 @@ class User(models.Model):
     is_active = models.BooleanField(default=True)  # pyright: ignore
     created_at = models.DateTimeField(auto_now_add=True)
     modified_at = models.DateTimeField(auto_now=True)
+
+
+class Emergency_Contact(models.Model):
+    """Model representing an emergency contact for a user."""
+
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    first_name = models.CharField(max_length=100)
+    last_name = models.CharField(max_length=100)
+    relationship = models.CharField(max_length=100)
+    phone_number = models.CharField(max_length=15, unique=True)
+    email = models.EmailField(blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    modified_at = models.DateTimeField(auto_now=True)
