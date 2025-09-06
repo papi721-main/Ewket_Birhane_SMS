@@ -68,3 +68,16 @@ class User_Role(models.Model):
     role = models.ForeignKey(Role, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     modified_at = models.DateTimeField(auto_now=True)
+
+
+class Batch(models.Model):
+    """Model representing the batch for students."""
+
+    name = models.CharField(max_length=100, unique=True, blank=False)
+    start_date = models.DateField(blank=False)
+    end_date = models.DateField(null=True)
+    level = models.IntegerField()
+    description = models.TextField()
+    remarks = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    modified_at = models.DateTimeField(auto_now=True)
