@@ -57,7 +57,7 @@ class Role(models.Model):
     """Model representing a role in the system."""
 
     name = models.CharField(max_length=100, unique=True)
-    description = models.TextField()
+    description = models.TextField(blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     modified_at = models.DateTimeField(auto_now=True)
     users = models.ManyToManyField(
@@ -85,8 +85,8 @@ class Batch(models.Model):
     start_date = models.DateField(blank=False)
     end_date = models.DateField(null=True)
     level = models.IntegerField()
-    description = models.TextField()
-    remarks = models.TextField()
+    description = models.TextField(blank=True)
+    remarks = models.TextField(blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     modified_at = models.DateTimeField(auto_now=True)
 
@@ -112,7 +112,7 @@ class Teacher_Profile(models.Model):
         User, on_delete=models.CASCADE, primary_key=True
     )  # If a user is deleted, the teacher profile is deleted
     start_date = models.DateField(null=True, blank=True)
-    remarks = models.TextField()
+    remarks = models.TextField(blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     modified_at = models.DateTimeField(auto_now=True)
 
@@ -124,7 +124,7 @@ class Staff_Profile(models.Model):
         User, on_delete=models.CASCADE, primary_key=True
     )  # If a user is deleted, the staff profile is deleted
     start_date = models.DateField(null=True, blank=True)
-    remarks = models.TextField()
+    remarks = models.TextField(blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     modified_at = models.DateTimeField(auto_now=True)
 
@@ -133,7 +133,7 @@ class Department(models.Model):
     """Model representing a department."""
 
     name = models.CharField(max_length=100, unique=True)
-    description = models.TextField(unique=True, blank=False)
+    description = models.TextField(blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     modified_at = models.DateTimeField(auto_now=True)
 
@@ -145,7 +145,7 @@ class Subject(models.Model):
         Department, on_delete=models.SET_NULL, null=True
     )  # If a department is deleted, department field will be null for the subject
     name = models.CharField(max_length=100, unique=True)
-    description = models.TextField(unique=True, blank=False)
+    description = models.TextField(blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     modified_at = models.DateTimeField(auto_now=True)
 
@@ -170,7 +170,7 @@ class Course(models.Model):
         Staff_Profile, on_delete=models.SET_NULL, null=True
     )  # If a staff is deleted, staff field will be null for the course
 
-    description = models.TextField(unique=True, blank=True)
+    description = models.TextField(blank=True)
     semester = models.IntegerField()
     year = models.IntegerField()
     remarks = models.TextField(blank=True)
