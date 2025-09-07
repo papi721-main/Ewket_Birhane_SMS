@@ -20,6 +20,9 @@ class User(AbstractUser):
     created_at = models.DateTimeField(auto_now_add=True)
     modified_at = models.DateTimeField(auto_now=True)
 
+    def __str__(self):
+        return f"User: {self.username}, {self.first_name} {self.last_name}, {self.email}, {self.phone_number}"
+
 
 class User_Address(models.Model):
     """
@@ -37,6 +40,9 @@ class User_Address(models.Model):
     country = models.CharField(max_length=100)
     created_at = models.DateTimeField(auto_now_add=True)
     modified_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return f"User_Address: {self.user}, {self.street_address}, {self.city}, {self.country}"
 
 
 class Emergency_Contact(models.Model):
@@ -56,6 +62,9 @@ class Emergency_Contact(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     modified_at = models.DateTimeField(auto_now=True)
 
+    def __str__(self):
+        return f"Emergency_Contact: {self.first_name} {self.last_name}, {self.relationship}, {self.user}"
+
 
 class Emergency_Contact_Address(models.Model):
     """
@@ -74,6 +83,9 @@ class Emergency_Contact_Address(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     modified_at = models.DateTimeField(auto_now=True)
 
+    def __str__(self):
+        return f"Emergency_Contact_Address: {self.emergency_contact}, {self.street_address}, {self.city}, {self.country}"
+
 
 class Role(models.Model):
     """
@@ -88,6 +100,9 @@ class Role(models.Model):
     users = models.ManyToManyField(
         settings.AUTH_USER_MODEL, through="User_Role", related_name="roles"
     )
+
+    def __str__(self):
+        return f"Role: {self.name}"
 
 
 class User_Role(models.Model):
@@ -115,6 +130,9 @@ class User_Role(models.Model):
             ),
         ]
 
+    def __str__(self):
+        return f"User_Role: {self.user}, {self.role}, {self.user.first_name} {self.user.last_name}"  # pyright:ignore
+
 
 class Batch(models.Model):
     """
@@ -130,6 +148,9 @@ class Batch(models.Model):
     remarks = models.TextField(blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     modified_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return f"Batch: {self.name}, Level {self.level}, {self.start_date}"
 
 
 class Student_Profile(models.Model):
@@ -148,6 +169,9 @@ class Student_Profile(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     modified_at = models.DateTimeField(auto_now=True)
 
+    def __str__(self):
+        return f"Student_Profile: {self.user}, {self.batch}, Joined: {self.joined_at}"
+
 
 class Teacher_Profile(models.Model):
     """
@@ -162,6 +186,9 @@ class Teacher_Profile(models.Model):
     remarks = models.TextField(blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     modified_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return f"Teacher_Profile: {self.user}, Start: {self.start_date}"
 
 
 class Staff_Profile(models.Model):
@@ -178,6 +205,9 @@ class Staff_Profile(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     modified_at = models.DateTimeField(auto_now=True)
 
+    def __str__(self):
+        return f"Staff_Profile: {self.user}, Start: {self.start_date}"
+
 
 class Department(models.Model):
     """
@@ -189,6 +219,9 @@ class Department(models.Model):
     description = models.TextField(blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     modified_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return f"Department: {self.name}"
 
 
 class Subject(models.Model):
@@ -204,6 +237,9 @@ class Subject(models.Model):
     description = models.TextField(blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     modified_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return f"Subject: {self.name}, Department: {self.department}"
 
 
 class Course(models.Model):
@@ -242,6 +278,9 @@ class Course(models.Model):
             )
         ]
 
+    def __str__(self):
+        return f"Course: {self.subject}, {self.batch}, Semester: {self.semester}, Year: {self.year}"
+
 
 class Enrollment(models.Model):
     """
@@ -273,6 +312,11 @@ class Enrollment(models.Model):
             )
         ]
 
+    def __str__(self):
+        return (
+            f"Enrollment: {self.student}, {self.course}, Grade: {self.grade}"
+        )
+
 
 class Assessment(models.Model):
     """
@@ -290,3 +334,6 @@ class Assessment(models.Model):
     remarks = models.TextField(blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     modified_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return f"Assessment: {self.type}, {self.enrollment}, Score: {self.score}/{self.total_score}"
