@@ -210,7 +210,7 @@ Tracks student enrollment information in a course.
 | `course_id`       | INTEGER     | FK → Course(course_id)                             | The course                                                  |
 | `enrollment_date` | DATE        |                                            | Date enrolled                                               |
 | `status`          | VARCHAR(20) |  | Status of the enrollment (e.g., Active, Completed, Dropped) |
-| `grade`           | FLOAT       |                                            | Final grade                                                 |
+| `grade`           | VARCHAR(2)       |                                            | Final grade (e.g. A, B, C, ... etc.)                                                 |
 | `rank`            | INTEGER     |                                            | Class rank                                                  |
 | `remark`          | TEXT        |                                            | Additional Notes                                            |
 | `created_at`      | DATETIME    | DEFAULT CURRENT_TIMESTAMP                          | Timestamp                                                   |
