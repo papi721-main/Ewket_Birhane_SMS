@@ -7,6 +7,7 @@ Here is the final ERD diagram:
 ![ERD Diagram](./ERD_v7_Final.png)
 
 ---
+
 ## 🧑‍ User Management
 
 ### Table: `User`
@@ -28,6 +29,7 @@ Stores account information for all system users (students, teachers, staff, admi
 | `modified_at`     | DATETIME    | ON UPDATE CURRENT_TIMESTAMP                        | Timestamp                                                   |
 
 ---
+
 ### Table: `User_Address`
 
 Stores address data in a query-able structure (Ethiopian context).
@@ -42,8 +44,8 @@ Stores address data in a query-able structure (Ethiopian context).
 | `city`        | Text      | NOT NULL                                       | City           |
 | `country`     | Text      | Default: 'Ethiopia'                            | Country        |
 
-
 ---
+
 ### Table: `Emergency_Contact`
 
 Stores emergency contact info for users.
@@ -61,6 +63,7 @@ Stores emergency contact info for users.
 | `modified_at`     | DATETIME    | ON UPDATE CURRENT_TIMESTAMP                        | Timestamp                                                   |
 
 ---
+
 ### Table: `Emergency_Contact_Address`
 
 Stores address data in a query-able structure (Ethiopian context).
@@ -76,6 +79,7 @@ Stores address data in a query-able structure (Ethiopian context).
 | `country`     | Text      | Default: 'Ethiopia'                            | Country        |
 
 ---
+
 ### Table: `Role`
 
 Defines access roles.
@@ -103,6 +107,7 @@ Associative entity that maps users to roles (many-to-many relationship).
 | `modified_at`     | DATETIME    | ON UPDATE CURRENT_TIMESTAMP                        | Timestamp                                                   |
 
 ---
+
 ## 👨‍🏫  User Profiles
 
 ### Table: `Student_Profile`
@@ -118,6 +123,7 @@ Stores extended student-specific data.
 | `modified_at`     | DATETIME    | ON UPDATE CURRENT_TIMESTAMP                        | Timestamp                                                   |
 
 ---
+
 ### Table: `Teacher_Profile`
 
 Stores extended teacher-specific data.
@@ -131,6 +137,7 @@ Stores extended teacher-specific data.
 | `modified_at`     | DATETIME    | ON UPDATE CURRENT_TIMESTAMP                        | Timestamp                                                   |
 
 ---
+
 ### Table: `Staff_Profile`
 
 Stores extended staff-specific data (Admin, Coordinator, etc.).
@@ -144,6 +151,7 @@ Stores extended staff-specific data (Admin, Coordinator, etc.).
 | `modified_at`     | DATETIME    | ON UPDATE CURRENT_TIMESTAMP                        | Timestamp                                                   |
 
 ---
+
 ## 🎓 Academic Structuring
 
 ### Table: `Batch`
@@ -163,6 +171,7 @@ Groups students into cohorts (e.g. `Grade7_2024`).
 | `modified_at`     | DATETIME    | ON UPDATE CURRENT_TIMESTAMP                        | Timestamp                                                   |
 
 ---
+
 ### Table: `Department`
 
 Defines academic departments (e.g. Theology, Mezmur).
@@ -176,6 +185,7 @@ Defines academic departments (e.g. Theology, Mezmur).
 | `modified_at`     | DATETIME    | ON UPDATE CURRENT_TIMESTAMP                        | Timestamp                                                   |
 
 ---
+
 ### Table: `Subject`
 
 Defines subjects taught in the system.
@@ -190,6 +200,7 @@ Defines subjects taught in the system.
 | `modified_at`     | DATETIME    | ON UPDATE CURRENT_TIMESTAMP                        | Timestamp                                                   |
 
 ---
+
 ## 📚 Course & Enrollment
 
 ### Table: `Course`
@@ -213,6 +224,7 @@ Represents a subject offered to a batch in a specific year/semester.
 📌 **Constraint:** Unique on (`subject_id`, `teacher_id`, `batch_id`, `semester`, `year`)
 
 ---
+
 ### Table: `Enrollment`
 
 Tracks student enrollment information in a course.
@@ -233,6 +245,7 @@ Tracks student enrollment information in a course.
 📌 **Constraint:** Unique on (`student_id`, `course_id`)
 
 ---
+
 ### Table: `Assessment`
 
 Stores individual scores for a student's course performance.
@@ -249,8 +262,8 @@ Stores individual scores for a student's course performance.
 | `created_at`    | DATETIME    | DEFAULT CURRENT_TIMESTAMP      | Timestamp                                                                                                        |
 | `modified_at`   | DATETIME    | ON UPDATE CURRENT_TIMESTAMP    | Timestamp                                                                                                        |
 
-
 ---
+
 ## 🔗 Relationships Summary
 
 ### One-to-One
@@ -279,7 +292,7 @@ Stores individual scores for a student's course performance.
 - `User` → `User_Role` ←  `Role`
 
 ---
+
 ## 🗒️ Additional Notes
 
 - All dates are to be in Ethiopian Calendar
-

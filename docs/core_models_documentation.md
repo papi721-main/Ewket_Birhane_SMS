@@ -5,6 +5,7 @@ This document provides an overview of the models in the `core` app and their rel
 ---
 
 ## User
+
 - **Inherits:** `AbstractUser`
 - **Fields:**
   - `first_name` (CharField, max_length=100)
@@ -23,6 +24,7 @@ This document provides an overview of the models in the `core` app and their rel
 ---
 
 ## User_Address
+
 - **Purpose:** Stores addresses for users.
 - **Fields:**
   - `user` (ForeignKey to User, nullable, CASCADE)
@@ -32,6 +34,7 @@ This document provides an overview of the models in the `core` app and their rel
 ---
 
 ## Emergency_Contact
+
 - **Purpose:** Emergency contacts for users.
 - **Fields:**
   - `user` (ForeignKey to User, CASCADE)
@@ -43,6 +46,7 @@ This document provides an overview of the models in the `core` app and their rel
 ---
 
 ## Emergency_Contact_Address
+
 - **Purpose:** Address for an emergency contact.
 - **Fields:**
   - `emergency_contact` (ForeignKey to Emergency_Contact, nullable, CASCADE)
@@ -52,6 +56,7 @@ This document provides an overview of the models in the `core` app and their rel
 ---
 
 ## Role
+
 - **Purpose:** Represents a user role (e.g., student, teacher, staff).
 - **Fields:**
   - `name` (unique), `description`, `created_at`, `modified_at`
@@ -61,6 +66,7 @@ This document provides an overview of the models in the `core` app and their rel
 ---
 
 ## User_Role
+
 - **Purpose:** Junction table for user-role relationships.
 - **Fields:**
   - `user` (ForeignKey to User, CASCADE)
@@ -72,6 +78,7 @@ This document provides an overview of the models in the `core` app and their rel
 ---
 
 ## Batch
+
 - **Purpose:** Represents a student batch.
 - **Fields:**
   - `name` (unique), `start_date`, `end_date`, `level`, `description`, `remarks`, `created_at`, `modified_at`
@@ -79,6 +86,7 @@ This document provides an overview of the models in the `core` app and their rel
 ---
 
 ## Student_Profile
+
 - **Purpose:** Profile for student users.
 - **Fields:**
   - `user` (OneToOneField to User, primary_key, CASCADE)
@@ -88,6 +96,7 @@ This document provides an overview of the models in the `core` app and their rel
 ---
 
 ## Teacher_Profile
+
 - **Purpose:** Profile for teacher users.
 - **Fields:**
   - `user` (OneToOneField to User, primary_key, CASCADE)
@@ -96,6 +105,7 @@ This document provides an overview of the models in the `core` app and their rel
 ---
 
 ## Staff_Profile
+
 - **Purpose:** Profile for staff users.
 - **Fields:**
   - `user` (OneToOneField to User, primary_key, CASCADE)
@@ -104,6 +114,7 @@ This document provides an overview of the models in the `core` app and their rel
 ---
 
 ## Department
+
 - **Purpose:** Academic departments.
 - **Fields:**
   - `name` (unique), `description`, `created_at`, `modified_at`
@@ -111,6 +122,7 @@ This document provides an overview of the models in the `core` app and their rel
 ---
 
 ## Subject
+
 - **Purpose:** Academic subjects.
 - **Fields:**
   - `department` (ForeignKey to Department, SET_NULL)
@@ -119,6 +131,7 @@ This document provides an overview of the models in the `core` app and their rel
 ---
 
 ## Course
+
 - **Purpose:** Courses offered to batches in a specific year/semester.
 - **Fields:**
   - `subject` (ForeignKey to Subject, SET_NULL)
@@ -132,6 +145,7 @@ This document provides an overview of the models in the `core` app and their rel
 ---
 
 ## Enrollment
+
 - **Purpose:** Student enrollment in courses.
 - **Fields:**
   - `student` (ForeignKey to Student_Profile, CASCADE)
@@ -143,6 +157,7 @@ This document provides an overview of the models in the `core` app and their rel
 ---
 
 ## Assessment
+
 - **Purpose:** Assessments for student enrollments.
 - **Fields:**
   - `enrollment` (ForeignKey to Enrollment, CASCADE)
