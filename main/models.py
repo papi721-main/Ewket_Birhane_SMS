@@ -207,6 +207,16 @@ class Enrollment(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     modified_at = models.DateTimeField(auto_now=True)
 
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(
+                fields=["student", "course"],
+                name="uniq_student_course",
+                # Enrollment must be unqiue per (student, course)
+                # This is to avoid enrolling the same student in the same course multiple times
+            )
+        ]
+
 
 class Assessment(models.Model):
     """Model representing assessments taken by a student in an enrollment."""
