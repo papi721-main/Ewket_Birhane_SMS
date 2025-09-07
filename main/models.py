@@ -189,6 +189,16 @@ class Course(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     modified_at = models.DateTimeField(auto_now=True)
 
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(
+                fields=["subject", "batch", "semester", "year"],
+                name="uniq_subject_batch_semester_year",
+                # Course must be unqiue per (subject, batch, semester, year)
+                # This is to avoid offering the same course multiple times in the same batch for the same semester and year
+            )
+        ]
+
 
 class Enrollment(models.Model):
     """Model representing an enrollment."""
