@@ -194,3 +194,18 @@ class Enrollment(models.Model):
     rank = models.IntegerField(blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     modified_at = models.DateTimeField(auto_now=True)
+
+
+class Assessment(models.Model):
+    """Model representing assessments taken by a student in an enrollment."""
+
+    enrollment = models.ForeignKey(
+        Enrollment, on_delete=models.CASCADE
+    )  # If an enrollment is deleted, the assessment records are deleted as well
+    type = models.CharField(max_length=100)
+    score = models.FloatField(null=True)
+    total_score = models.FloatField(null=True)
+    given_at = models.DateTimeField(blank=True, null=True)
+    remarks = models.TextField(blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    modified_at = models.DateTimeField(auto_now=True)
