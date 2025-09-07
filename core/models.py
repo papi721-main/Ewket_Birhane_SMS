@@ -12,11 +12,11 @@ class User(AbstractUser):
     Stores personal details and is the central entity for user-related relationships.
     """
 
-    first_name = models.CharField(max_length=100)
-    last_name = models.CharField(max_length=100)
-    date_of_birth = models.DateField()
-    email = models.EmailField(unique=True)
-    phone_number = models.CharField(max_length=15, unique=True)
+    first_name = models.CharField(max_length=100, blank=True)
+    last_name = models.CharField(max_length=100, blank=True)
+    email = models.EmailField(blank=True)
+    date_of_birth = models.DateField(blank=True, null=True)
+    phone_number = models.CharField(max_length=15, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     modified_at = models.DateTimeField(auto_now=True)
 
