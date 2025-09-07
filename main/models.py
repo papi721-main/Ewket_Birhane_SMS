@@ -97,7 +97,7 @@ class Student_Profile(models.Model):
     user = models.OneToOneField(
         User, on_delete=models.CASCADE, primary_key=True
     )  # If a user is deleted, the student profile is deleted
-    batch = models.OneToOneField(
+    batch = models.ForeignKey(
         Batch, on_delete=models.SET_NULL, null=True
     )  # If a batch is deleted, the student profile is set to null
     joined_at = models.DateField(null=True, blank=True)

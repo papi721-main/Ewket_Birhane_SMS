@@ -244,7 +244,6 @@ Stores individual scores for a student's course performance.
 - `User` → `Teacher_Profile`
 - `User` → `Student_Profile`
 - `User` → `Staff_Profile`
-- `Student_Profile` → `Batch`
 
 ### One-to-Many
 
@@ -254,12 +253,13 @@ Stores individual scores for a student's course performance.
 - `Department` → `Subject`
 - `Subject` → `Course`
 - `Batch` → `Course`
+- `Batch` → `Student_Profile`
 - `Teacher_Profile` → `Course`
 - `Staff_Profile` → `Course`
 - `Course` → `Enrollment`
 - `Student_Profile` → `Enrollment`
-- `Batch` → `Student_Profile`
 - `Enrollment` → `Assessment`
+
 ### Many-to-Many (via associative table)
 
 - `User` → `User_Role` ←  `Role`
