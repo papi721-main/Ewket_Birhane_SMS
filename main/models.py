@@ -176,3 +176,21 @@ class Course(models.Model):
     remarks = models.TextField(blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     modified_at = models.DateTimeField(auto_now=True)
+
+
+class Enrollment(models.Model):
+    """Model representing an enrollment."""
+
+    student = models.ForeignKey(
+        Student_Profile, on_delete=models.CASCADE
+    )  # If a student is deleted, the enrollment record is deleted as well
+
+    course = models.ForeignKey(
+        Course, on_delete=models.CASCADE
+    )  # If a course is deleted, the enrollment record is deleted as well
+    enrollment_date = models.DateTimeField(blank=True, null=True)
+    status = models.CharField(max_length=100, blank=True)
+    grade = models.CharField(max_length=2, blank=True)
+    rank = models.IntegerField(blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    modified_at = models.DateTimeField(auto_now=True)
