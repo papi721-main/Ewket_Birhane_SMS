@@ -1,8 +1,6 @@
 #!/usr/bin/env python3
-from enum import unique
 
 from django.db import models
-from django.db.models import constraints
 
 
 class User(models.Model):
