@@ -148,3 +148,31 @@ class Subject(models.Model):
     description = models.TextField(unique=True, blank=False)
     created_at = models.DateTimeField(auto_now_add=True)
     modified_at = models.DateTimeField(auto_now=True)
+
+
+class Course(models.Model):
+    """Model representing a course.
+
+    Description:
+        - This model is used to keep track of the courses offered to a batch in a specific year/semester
+    """
+
+    subject = models.ForeignKey(
+        Subject, on_delete=models.SET_NULL, null=True
+    )  # If a subject is deleted, subject field will be null for the course
+    teacher = models.ForeignKey(
+        Teacher_Profile, on_delete=models.SET_NULL, null=True
+    )  # If a teacher is deleted, teacher field will be null for the course
+    batch = models.ForeignKey(
+        Batch, on_delete=models.SET_NULL, null=True
+    )  # If a batch is deleted, batch field will be null for the course
+    staff = models.ForeignKey(
+        Staff_Profile, on_delete=models.SET_NULL, null=True
+    )  # If a staff is deleted, staff field will be null for the course
+
+    description = models.TextField(unique=True, blank=True)
+    semester = models.IntegerField()
+    year = models.IntegerField()
+    remarks = models.TextField(blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    modified_at = models.DateTimeField(auto_now=True)
