@@ -127,3 +127,24 @@ class Staff_Profile(models.Model):
     remarks = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
     modified_at = models.DateTimeField(auto_now=True)
+
+
+class Department(models.Model):
+    """Model representing a department."""
+
+    name = models.CharField(max_length=100, unique=True)
+    description = models.TextField(unique=True, blank=False)
+    created_at = models.DateTimeField(auto_now_add=True)
+    modified_at = models.DateTimeField(auto_now=True)
+
+
+class Subject(models.Model):
+    """Model representing a subject."""
+
+    department = models.ForeignKey(
+        Department, on_delete=models.SET_NULL, null=True
+    )  # If a department is deleted, department field will be null for the subject
+    name = models.CharField(max_length=100, unique=True)
+    description = models.TextField(unique=True, blank=False)
+    created_at = models.DateTimeField(auto_now_add=True)
+    modified_at = models.DateTimeField(auto_now=True)
