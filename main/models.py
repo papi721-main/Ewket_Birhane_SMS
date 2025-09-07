@@ -2,6 +2,7 @@
 from enum import unique
 
 from django.db import models
+from django.db.models import constraints
 
 
 class User(models.Model):
@@ -88,6 +89,16 @@ class User_Role(models.Model):
     )  # If a role is deleted, the user-role relationship is deleted
     created_at = models.DateTimeField(auto_now_add=True)
     modified_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(
+                fields=["user", "role"],
+                name="uniq_user_role",
+                # User-role relationship must be unqiue per (user, role)
+                # This is to avoid assigning the same role to the same user multiple times
+            ),
+        ]
 
 
 class Batch(models.Model):
