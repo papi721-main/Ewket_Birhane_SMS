@@ -15,7 +15,6 @@ class User(AbstractUser):
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
     date_of_birth = models.DateField()
-    age = models.IntegerField(null=True, blank=True)
     email = models.EmailField(unique=True)
     phone_number = models.CharField(max_length=15, unique=True)
     created_at = models.DateTimeField(auto_now_add=True)

@@ -21,7 +21,6 @@ Stores account information for all system users (students, teachers, staff, admi
 | `first_name`    | Text      | NOT NULL                     | First name of the user                         |
 | `last_name`     | Text      | NOT NULL                     | Last name of the user                          |
 | `date_of_birth` | DATE      | NOT NULL                     | Date of birth                                  |
-| `age`           | Integer   |                      | Age of user, calculated from date of birth     |
 | `email`         | Text      |              | User email address                             |
 | `phone_number`  | Text      | NOT NULL                     | User phone number                              |
 | `is_active`     | Boolean   | Default: true                | Boolean to indicate whether the user is active |
