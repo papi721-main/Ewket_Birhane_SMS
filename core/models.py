@@ -31,7 +31,7 @@ class User_Address(models.Model):
     """
 
     user = models.ForeignKey(
-        settings.AUTH_USER_MODEL, on_delete=models.CASCADE, null=True
+        settings.AUTH_USER_MODEL, on_delete=models.CASCADE
     )  # If a user is deleted, the corresponding address is deleted
     street_address = models.CharField(max_length=255)
     woreda = models.IntegerField()
@@ -73,7 +73,7 @@ class Emergency_Contact_Address(models.Model):
     """
 
     emergency_contact = models.ForeignKey(
-        Emergency_Contact, on_delete=models.CASCADE, null=True
+        Emergency_Contact, on_delete=models.CASCADE
     )  # If an emergency contact is deleted, the corresponding address is deleted
     street_address = models.CharField(max_length=255)
     woreda = models.IntegerField()
