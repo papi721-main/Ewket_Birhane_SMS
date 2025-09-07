@@ -6,7 +6,11 @@ from django.db import models
 
 
 class User(AbstractUser):
-    """Model representing a user in the system."""
+    """
+    Custom user model extending Django's AbstractUser.
+    Purpose: Represents all users in the system, including authentication and profile information.
+    Stores personal details and is the central entity for user-related relationships.
+    """
 
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
@@ -19,7 +23,10 @@ class User(AbstractUser):
 
 
 class User_Address(models.Model):
-    """Model representing an address for a user."""
+    """
+    Stores address information for a user.
+    Purpose: Allows each user to have one or more physical addresses associated with their account.
+    """
 
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL, on_delete=models.CASCADE, null=True
@@ -34,7 +41,10 @@ class User_Address(models.Model):
 
 
 class Emergency_Contact(models.Model):
-    """Model representing an emergency contact for a user."""
+    """
+    Stores emergency contact information for a user.
+    Purpose: Enables users to register people to be contacted in case of emergency, with their relationship and contact details.
+    """
 
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL, on_delete=models.CASCADE
@@ -49,7 +59,10 @@ class Emergency_Contact(models.Model):
 
 
 class Emergency_Contact_Address(models.Model):
-    """Model representing an address for an emergency contact."""
+    """
+    Stores address information for an emergency contact.
+    Purpose: Allows each emergency contact to have one or more physical addresses.
+    """
 
     emergency_contact = models.ForeignKey(
         Emergency_Contact, on_delete=models.CASCADE, null=True
@@ -64,7 +77,10 @@ class Emergency_Contact_Address(models.Model):
 
 
 class Role(models.Model):
-    """Model representing a role in the system."""
+    """
+    Represents a role that can be assigned to users (e.g., student, teacher, staff).
+    Purpose: Supports role-based access and permissions by associating users with specific roles.
+    """
 
     name = models.CharField(max_length=100, unique=True)
     description = models.TextField(blank=True)
@@ -76,7 +92,10 @@ class Role(models.Model):
 
 
 class User_Role(models.Model):
-    """Model representing a user-role relationship."""
+    """
+    Junction table for the many-to-many relationship between users and roles.
+    Purpose: Tracks which users have which roles, and enforces uniqueness for each user-role pair.
+    """
 
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL, on_delete=models.CASCADE
@@ -99,7 +118,10 @@ class User_Role(models.Model):
 
 
 class Batch(models.Model):
-    """Model representing the batch for students."""
+    """
+    Represents a batch or cohort of students.
+    Purpose: Groups students by academic year, level, or intake for organizational and reporting purposes.
+    """
 
     name = models.CharField(max_length=100, unique=True, blank=False)
     start_date = models.DateField(blank=False)
@@ -112,7 +134,10 @@ class Batch(models.Model):
 
 
 class Student_Profile(models.Model):
-    """Model representing a student profile."""
+    """
+    Profile model for student users.
+    Purpose: Stores student-specific information and links each student to a batch.
+    """
 
     user = models.OneToOneField(
         settings.AUTH_USER_MODEL, on_delete=models.CASCADE, primary_key=True
@@ -126,7 +151,10 @@ class Student_Profile(models.Model):
 
 
 class Teacher_Profile(models.Model):
-    """Model representing a teacher profile."""
+    """
+    Profile model for teacher users.
+    Purpose: Stores teacher-specific information, such as employment start date and remarks.
+    """
 
     user = models.OneToOneField(
         settings.AUTH_USER_MODEL, on_delete=models.CASCADE, primary_key=True
@@ -138,7 +166,10 @@ class Teacher_Profile(models.Model):
 
 
 class Staff_Profile(models.Model):
-    """Model representing a staff profile."""
+    """
+    Profile model for staff users.
+    Purpose: Stores staff-specific information, such as employment start date and remarks.
+    """
 
     user = models.OneToOneField(
         settings.AUTH_USER_MODEL, on_delete=models.CASCADE, primary_key=True
@@ -150,7 +181,10 @@ class Staff_Profile(models.Model):
 
 
 class Department(models.Model):
-    """Model representing a department."""
+    """
+    Represents an academic or administrative department within the institution.
+    Purpose: Organizes subjects and courses under specific departments.
+    """
 
     name = models.CharField(max_length=100, unique=True)
     description = models.TextField(blank=True)
@@ -159,7 +193,10 @@ class Department(models.Model):
 
 
 class Subject(models.Model):
-    """Model representing a subject."""
+    """
+    Represents an academic subject offered by a department.
+    Purpose: Defines the subjects that can be taught and linked to courses.
+    """
 
     department = models.ForeignKey(
         Department, on_delete=models.SET_NULL, null=True
@@ -171,10 +208,9 @@ class Subject(models.Model):
 
 
 class Course(models.Model):
-    """Model representing a course.
-
-    Description:
-        - This model is used to keep track of the courses offered to a batch in a specific year/semester
+    """
+    Represents a course offering for a specific batch, subject, teacher, and semester/year.
+    Purpose: Tracks which courses are available to which batches, who teaches them, and in which academic period.
     """
 
     subject = models.ForeignKey(
@@ -209,7 +245,10 @@ class Course(models.Model):
 
 
 class Enrollment(models.Model):
-    """Model representing an enrollment."""
+    """
+    Represents a student's enrollment in a specific course.
+    Purpose: Tracks which students are enrolled in which courses, including enrollment status and grades.
+    """
 
     student = models.ForeignKey(
         Student_Profile, on_delete=models.CASCADE
@@ -237,7 +276,10 @@ class Enrollment(models.Model):
 
 
 class Assessment(models.Model):
-    """Model representing assessments taken by a student in an enrollment."""
+    """
+    Represents an assessment or exam taken by a student as part of a course enrollment.
+    Purpose: Records assessment type, scores, and related details for each enrollment.
+    """
 
     enrollment = models.ForeignKey(
         Enrollment, on_delete=models.CASCADE
