@@ -20,6 +20,21 @@ class User(models.Model):
     modified_at = models.DateTimeField(auto_now=True)
 
 
+class User_Address(models.Model):
+    """Model representing an address for a user."""
+
+    user = models.ForeignKey(
+        User, on_delete=models.CASCADE, null=True
+    )  # If a user is deleted, the corresponding address is deleted
+    street_address = models.CharField(max_length=255)
+    woreda = models.IntegerField()
+    sub_city = models.CharField(max_length=100)
+    city = models.CharField(max_length=100)
+    country = models.CharField(max_length=100)
+    created_at = models.DateTimeField(auto_now_add=True)
+    modified_at = models.DateTimeField(auto_now=True)
+
+
 class Emergency_Contact(models.Model):
     """Model representing an emergency contact for a user."""
 
@@ -35,12 +50,9 @@ class Emergency_Contact(models.Model):
     modified_at = models.DateTimeField(auto_now=True)
 
 
-class Address(models.Model):
-    """Model representing an address for a user or an emergency contact."""
+class Emergency_Contact_Address(models.Model):
+    """Model representing an address for an emergency contact."""
 
-    user = models.ForeignKey(
-        User, on_delete=models.CASCADE, null=True
-    )  # If a user is deleted, the corresponding address is deleted
     emergency_contact = models.ForeignKey(
         Emergency_Contact, on_delete=models.CASCADE, null=True
     )  # If an emergency contact is deleted, the corresponding address is deleted

@@ -29,6 +29,22 @@ Stores account information for all system users (students, teachers, staff, admi
 | `modified_at`     | DATETIME    | ON UPDATE CURRENT_TIMESTAMP                        | Timestamp                                                   |
 
 ---
+### Table: `User_Address`
+
+Stores address data in a query-able structure (Ethiopian context).
+
+| Field         | Data Type | Constraints                                    | Description    |
+| ------------- | --------- | ---------------------------------------------- | -------------- |
+| `address_id`  | Integer   | PK, Auto-increment                             | Unique ID      |
+| `user_id`     | Integer   | FK → User(user_id)                   | Linked user    |
+| `street_name` | Text      | NOT NULL                                  | Street name    |
+| `woreda`      | Integer   | NOT NULL                                       | Woreda         |
+| `sub_city`    | Text      | NOT NULL                                       | Sub-city       |
+| `city`        | Text      | NOT NULL                                       | City           |
+| `country`     | Text      | Default: 'Ethiopia'                            | Country        |
+
+
+---
 ### Table: `Emergency_Contact`
 
 Stores emergency contact info for users.
@@ -46,15 +62,14 @@ Stores emergency contact info for users.
 | `modified_at`     | DATETIME    | ON UPDATE CURRENT_TIMESTAMP                        | Timestamp                                                   |
 
 ---
-### Table: `Address`
+### Table: `Emergency_Contact_Address`
 
 Stores address data in a query-able structure (Ethiopian context).
 
 | Field         | Data Type | Constraints                                    | Description    |
 | ------------- | --------- | ---------------------------------------------- | -------------- |
 | `address_id`  | Integer   | PK, Auto-increment                             | Unique ID      |
-| `user_id`     | Integer   | FK → User(user_id), NULLABLE                   | Linked user    |
-| `contact_id`  | Integer   | FK → Emergency_Contact(`contact_id`), NULLABLE | Linked contact |
+| `contact_id`  | Integer   | FK → Emergency_Contact(`contact_id`) | Linked contact |
 | `street_name` | Text      | NOT NULL                                  | Street name    |
 | `woreda`      | Integer   | NOT NULL                                       | Woreda         |
 | `sub_city`    | Text      | NOT NULL                                       | Sub-city       |
