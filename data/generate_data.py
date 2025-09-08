@@ -224,6 +224,52 @@ def create_demo_student_profiles():
     print("------------------------")
 
 
+def create_demo_teacher_profiles():
+    """Creates teacher profiles"""
+
+    print("Creating teacher profiles")
+    print("------------------------")
+    teacher_users = User.objects.filter(username__startswith="teacher")
+    if not teacher_users.exists():
+        print("No teacher users found")
+        print("------------------------")
+        return
+
+    for user in teacher_users:
+        Teacher_Profile.objects.create(user=user)
+
+    # Check that it worked
+    print("Teacher Profiles Created:")
+    for teacher in teacher_users:
+        print(
+            f"Teacher: {teacher.username} - {teacher.first_name} {teacher.last_name} - {teacher.teacher_profile.created_at}"
+        )
+    print("------------------------")
+
+
+def create_demo_staff_profiles():
+    """Creates staff profiles"""
+
+    print("Creating staff profiles")
+    print("------------------------")
+    staff_users = User.objects.filter(username__startswith="staff")
+    if not staff_users.exists():
+        print("No staff users found")
+        print("------------------------")
+        return
+
+    for user in staff_users:
+        Staff_Profile.objects.create(user=user)
+
+    # Check that it worked
+    print("Staff Profiles Created:")
+    for staff in staff_users:
+        print(
+            f"Staff: {staff.username} - {staff.first_name} {staff.last_name} - {staff.staff_profile.created_at}"
+        )
+    print("------------------------")
+
+
 if __name__ == "__main__":
     delete_all_data()
     create_demo_roles()
@@ -231,3 +277,5 @@ if __name__ == "__main__":
     assign_demo_roles()
     create_demo_batches()
     create_demo_student_profiles()
+    create_demo_teacher_profiles()
+    create_demo_staff_profiles()
