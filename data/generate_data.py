@@ -5,6 +5,7 @@ This is a script for generating data using Django ORM
 
 """
 
+import datetime
 import os
 import sys
 
@@ -27,8 +28,19 @@ os.environ.setdefault(
 # 2. Setup Django
 django.setup()
 
-# 3. Now you can safely import your models
-from core.models import Role, User  # noqa - ignore pycodestyle
+# ---
+
+from demo_data import *
+
+# 3. Now import models
+from core.models import (
+    Batch,
+    Role,
+    Staff_Profile,
+    Student_Profile,
+    Teacher_Profile,
+    User,
+)
 
 # ---
 
@@ -36,30 +48,12 @@ from core.models import Role, User  # noqa - ignore pycodestyle
 def create_demo_roles():
     """Removes all previous roles and create fresh roles for a demo"""
 
+    # First delete all previous roles
     roles = Role.objects.all()
     roles.delete()
 
-    Role.objects.bulk_create(
-        [
-            Role(pk=1, name="Student", description="A student in the school"),
-            Role(pk=2, name="Teacher", description="A teacher in the school"),
-            Role(
-                pk=3,
-                name="Assistant",
-                description="A member of the school serving as an assistant for a batch",
-            ),
-            Role(
-                pk=4,
-                name="Coordinator",
-                description="A member of the school serving as a coordinator",
-            ),
-            Role(
-                pk=5,
-                name="Head",
-                description="A member of the school serving as the head of the school",
-            ),
-        ]
-    )
+    # Create demo roles
+    Role.objects.bulk_create(demo_roles)
 
     # Check that it worked
     roles = Role.objects.all()
@@ -70,5 +64,72 @@ def create_demo_roles():
     print("---------------")
 
 
+def create_demo_batches():
+    """Create fresh batches for demo"""
+
+    # First delete all previous batches
+    batches = Batch.objects.all()
+    batches.delete()
+
+    # Create demo batches
+    Batch.objects.bulk_create(demo_batches)
+
+    # Check that it worked
+    batches = Batch.objects.all()
+    print("Batches Created:")
+    print("----------------------")
+    for batch in batches:
+        print(f"Batch: {batch.name} - {batch.level} - {batch.start_date}")
+    print("----------------------")
+
+
+def create_demo_student_users():
+    """Creates fresh student users for a demo"""
+
+    # First delete all student profiles
+    student_profiles = Student_Profile.objects.all()
+    student_profiles.delete()
+
+    # Create student users
+    User.objects.bulk_create(demo_student_users)
+
+    # Assign "Student" roles, student profile and batch to student users
+    student_role = Role.objects.get(name="Student")
+    demo_batches_len = len(demo_batches)
+    for i, user in enumerate(demo_student_users):
+        user.roles.add(student_role)
+        user.student_profile = Student_Profile.objects.create(user=user)
+        user.student_profile.batch = demo_batches[i % demo_batches_len]
+        user.student_profile.save()
+
+
+def create_demo_users():
+    """Removes all previous users and create fresh users for a demo"""
+
+    # First delete all users that are not the superuser
+    users = User.objects.filter(is_superuser=False)
+    users.delete()
+
+    # Call functions
+    create_demo_student_users()
+
+    # Check that it worked
+    users = User.objects.all()
+    print("Users Created:")
+    print("----------------------")
+    for user in users:
+        print(
+            f"User: {user.username} - {user.email} - {[role.name for role in user.roles.all()]}"
+        )
+    print("----------------------")
+
+
 if __name__ == "__main__":
+    # 1. Create demo roles
     create_demo_roles()
+
+    # 2. Create demo batches for students
+    create_demo_batches()
+
+    # 2. Create demo users
+    create_demo_users()
