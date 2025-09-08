@@ -34,23 +34,51 @@ from demo_data import *
 
 # 3. Now import models
 from core.models import (
+    Assessment,
     Batch,
+    Course,
+    Department,
+    Emergency_Contact,
+    Emergency_Contact_Address,
+    Enrollment,
     Role,
     Staff_Profile,
     Student_Profile,
+    Subject,
     Teacher_Profile,
     User,
+    User_Address,
+    User_Role,
 )
 
 # ---
 
 
+def delete_all_data():
+    """Removes all data from the database"""
+
+    users = User.objects.filter(is_superuser=False)
+    users.delete()
+
+    for model in [
+        Role,
+        User_Role,
+        Batch,
+        Student_Profile,
+        Staff_Profile,
+        Teacher_Profile,
+        Emergency_Contact,
+        Emergency_Contact_Address,
+        User_Address,
+        Course,
+        Enrollment,
+        Assessment,
+    ]:
+        model.objects.all().delete()
+
+
 def create_demo_roles():
     """Removes all previous roles and create fresh roles for a demo"""
-
-    # First delete all previous roles
-    roles = Role.objects.all()
-    roles.delete()
 
     # Create demo roles
     Role.objects.bulk_create(demo_roles)
@@ -67,10 +95,6 @@ def create_demo_roles():
 def create_demo_batches():
     """Create fresh batches for demo"""
 
-    # First delete all previous batches
-    batches = Batch.objects.all()
-    batches.delete()
-
     # Create demo batches
     Batch.objects.bulk_create(demo_batches)
 
@@ -85,10 +109,6 @@ def create_demo_batches():
 
 def create_demo_student_users():
     """Creates fresh student users for a demo"""
-
-    # First delete all student profiles
-    student_profiles = Student_Profile.objects.all()
-    student_profiles.delete()
 
     # Create student users
     User.objects.bulk_create(demo_student_users)
@@ -106,10 +126,6 @@ def create_demo_student_users():
 def create_demo_users():
     """Removes all previous users and create fresh users for a demo"""
 
-    # First delete all users that are not the superuser
-    users = User.objects.filter(is_superuser=False)
-    users.delete()
-
     # Call functions
     create_demo_student_users()
 
@@ -125,11 +141,4 @@ def create_demo_users():
 
 
 if __name__ == "__main__":
-    # 1. Create demo roles
-    create_demo_roles()
-
-    # 2. Create demo batches for students
-    create_demo_batches()
-
-    # 2. Create demo users
-    create_demo_users()
+    delete_all_data()
