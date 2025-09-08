@@ -73,6 +73,8 @@ def delete_all_data():
         Course,
         Enrollment,
         Assessment,
+        Department,
+        Subject,
     ]:
         model.objects.all().delete()
 
@@ -338,6 +340,126 @@ def assign_user_addresses():
     print("------------------------")
 
 
+def create_departments_and_subjects():
+    # 1) Departments
+    print("Creating departments")
+    print("----------------------")
+    dept_payload = [
+        Department(
+            name="Geez", description="Studies in the Ge'ez language and texts."
+        ),
+        Department(
+            name="Dogmatic Theology",
+            description="Core doctrines and theological studies.",
+        ),
+        Department(
+            name="Biblical Studies",
+            description="Old and New Testament studies.",
+        ),
+        Department(
+            name="Church History",
+            description="Historical development of the Church.",
+        ),
+    ]
+
+    Department.objects.bulk_create(dept_payload)
+
+    # Check if it worked
+    departments = Department.objects.all()
+    if not departments.exists():
+        print("No departments were created")
+        print("----------------------")
+        return
+
+    print("Departments Created:")
+    for department in departments:
+        print(f"Department: {department.name} - {department.description}")
+    print("----------------------")
+
+    # Fetch (including existing) for foreign-key mapping
+    print("Creating subjects")
+    print("----------------------")
+    dept_map = {d.name: d for d in departments}
+
+    # 2) Subjects (department_name, subject_name, description)
+    subject_rows = [
+        # Geez
+        ("Geez", "Geez I", "Introductory Ge'ez reading and grammar."),
+        ("Geez", "Geez II", "Intermediate Ge'ez syntax and translation."),
+        ("Geez", "Geez III", "Advanced Ge'ez texts and commentary."),
+        # Dogmatic Theology
+        (
+            "Dogmatic Theology",
+            "Introduction to Dogmatic Theology",
+            "Survey of dogmatic method and sources.",
+        ),
+        (
+            "Dogmatic Theology",
+            "Theological Ethics",
+            "Moral theology grounded in doctrine.",
+        ),
+        (
+            "Dogmatic Theology",
+            "Theological Philosophy",
+            "Philosophical foundations for theology.",
+        ),
+        # Biblical Studies
+        (
+            "Biblical Studies",
+            "Introduction to Old Testament",
+            "Overview, canon, themes of the OT.",
+        ),
+        (
+            "Biblical Studies",
+            "Introduction to New Testament",
+            "Overview, canon, themes of the NT.",
+        ),
+        (
+            "Biblical Studies",
+            "Scriptural Studies",
+            "Methods of interpretation and exegesis.",
+        ),
+        # Church History
+        (
+            "Church History",
+            "Church History I",
+            "Early Church to pre-medieval developments.",
+        ),
+        (
+            "Church History",
+            "Church History II",
+            "Medieval to Reformation movements.",
+        ),
+        (
+            "Church History",
+            "Church History III",
+            "Modern era to contemporary Church.",
+        ),
+    ]
+
+    subjects_payload = [
+        Subject(
+            department=dept_map[dept_name], name=subj_name, description=desc
+        )
+        for (dept_name, subj_name, desc) in subject_rows
+    ]
+    Subject.objects.bulk_create(subjects_payload)
+
+    # Check if it worked
+    subjects = Subject.objects.all()
+    if not subjects.exists():
+        print("No subjects were created")
+        print("----------------------")
+        return
+
+    print("Subjects Created:")
+    for subject in subjects:
+        print(
+            f"Subject: {subject.department.name} - {subject.name} - {subject.description}"
+        )
+    print("----------------------")
+
+
 if __name__ == "__main__":
     delete_all_data()
     create_demo_roles()
@@ -348,3 +470,4 @@ if __name__ == "__main__":
     create_demo_teacher_profiles()
     create_demo_staff_profiles()
     assign_user_addresses()
+    create_departments_and_subjects()
