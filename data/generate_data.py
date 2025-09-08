@@ -270,6 +270,74 @@ def create_demo_staff_profiles():
     print("------------------------")
 
 
+def assign_user_addresses():
+    """Assigns user addresses"""
+
+    print("Assigning user addresses")
+    print("------------------------")
+    # Example data pools
+    sub_cities = [
+        "Bole",
+        "Lemi Kura",
+        "Yeka",
+        "Kirkos",
+        "Nifas Silk-Lafto",
+        "Arada",
+        "Kolfe Keranio",
+        "Gullele",
+        "Lideta",
+        "Akaki Kality",
+        "Addis Ketema",
+    ]
+    cities = [
+        "Addis Ababa",
+        "Adama",
+        "Bahir Dar",
+        "Mekelle",
+        "Hawassa",
+        "Dire Dawa",
+        "Gondar",
+        "Jimma",
+        "Harar",
+        "Debre Markos",
+    ]
+
+    users = User.objects.filter(is_superuser=False).order_by("id")
+    if not users.exists():
+        print("No users found")
+        print("------------------------")
+        return
+
+    addresses = []
+    for i, user in enumerate(users, start=1):
+        addresses.append(
+            User_Address(
+                user=user,
+                street_address=f"{100 + i} Main St",
+                woreda=(i % 15) + 1,  # woreda cycles 1–15
+                sub_city=sub_cities[i % len(sub_cities)],
+                city=cities[i % len(cities)],
+                country="Ethiopia",
+            )
+        )
+
+    User_Address.objects.bulk_create(addresses)
+
+    # Check that it worked
+    user_addresses = User_Address.objects.all()
+    if not user_addresses.exists():
+        print("No user addresses were created")
+        print("------------------------")
+        return
+
+    print("User Addresses Created:")
+    for address in user_addresses:
+        print(
+            f"User: {address.user.username} - {address.street_address} - {address.city} - {address.country}"
+        )
+    print("------------------------")
+
+
 if __name__ == "__main__":
     delete_all_data()
     create_demo_roles()
@@ -279,3 +347,4 @@ if __name__ == "__main__":
     create_demo_student_profiles()
     create_demo_teacher_profiles()
     create_demo_staff_profiles()
+    assign_user_addresses()
