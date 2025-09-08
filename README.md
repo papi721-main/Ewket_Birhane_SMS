@@ -1,6 +1,6 @@
 # Ewket Birhane Sunday School - Student Management System (SMS)
 
-## Description
+## 📝 Description
 
 Ewket Birhane is a Sunday School within the Ethiopian Orthodox Tewahedo Church, located at the Salite Mehret Saint Mary and Saint Kirstos Semra Church, Addis Ababa, Ethiopia. The school teaches theological courses as well as various life skill trainings to students. It also allows students to participate in community services and outreach programs, which helps to foster a sense of social responsibility and spiritual growth.
 
@@ -8,54 +8,67 @@ I have been a part of the school for a few years now, both as a student and a cl
 
 To address this challenge, this project aims to develop a robust Student Management System (SMS) tailored to the needs of Ewket Birhane. The system will help streamline administrative tasks, improve data organization, and enhance the overall learning experience for both students, teachers and administrators.
 
-## Main features to be implemented
+## ✨ Features
 
-Here a list of the core features to implement for this project:
+- **User Management**:
+  - Custom user model with roles (Student, Teacher, Staff, etc.).
+  - Role-based access control.
+- **Profiles**:
+  - Student, Teacher, and Staff profiles.
+- **Academic Management**:
+  - Batches, Courses, Enrollments, and Assessments.
+- **Emergency Contacts**:
+  - Emergency contact information for users.
+- **Address Management**:
+  - User and emergency contact addresses.
 
-### 🧑‍🎓 1. Student Management
+## 🚀 How to Run the Project
 
-- Add/edit/delete student profiles
-- Upload and store student photos
-- Assign unique ID to each student
-- Search/filter students by name, ID, level, or gender
-- Track student status (active, graduated, dropped)
-- Entering, viewing, and updating grades of students
-- Export students grade report in CSV
-- View list of all registered students
-- View detailed student profiles
+1. **Clone the Repository**:
 
-### 🧑‍🏫 2. Teacher Management
+   ```bash
+   git clone <repository-url>
+   cd Ewket_Birhane_SMS
+   ```
 
-- Add/edit/delete teacher profiles
-- Assign teachers to courses
-- View list of all teachers and their course assignments
+2. **Set Up a Virtual Environment**:
 
-### 📚 3. Course Management
+   ```bash
+   python3 -m venv venv
+   source venv/bin/activate
+   ```
 
-- Add/edit/delete courses
-- Assign each course to a teacher
-- Define course attributes: title, code, level, duration, department
-- View courses by level or department
-- Track course status (e.g., Active, Archived)
+3. **Install Dependencies**:
 
-### 📖 4. Student Course Enrollment
+   ```bash
+   pip install -r requirements.txt
+   ```
 
-- Enroll students into multiple courses
-- Track which students are enrolled in which courses
-- Record enrollment date, level, and course year
+4. **Apply Migrations**:
 
-### 🔐 5. User Authentication
+   ```bash
+   python manage.py migrate
+   ```
 
-- User login
-- Roles: Admin, Coordinator, Teacher (optional scope), Student (optional scope)
+5. **Run the Development Server**:
 
-## Project Plan
+   ```bash
+   python manage.py runserver
+   ```
 
-My plan for this project is pretty simple:
+6. **Access the Application**:
+   Open your browser and go to `http://127.0.0.1:8000/`.
 
-1. Develop a list of features to implement (that will be this doc here 😊)
-2. Design the database
-3. Develop an ERD diagram
-4. Design API endpoints to implement
-5. Build models and relationships
-6. Build APIs
+## 📄 Documentation
+
+- **Core Models Documentation**: `docs/core_models_documentation.md`
+- **Database Design Documentation**: `docs/database_design_documentation.md`
+- **Entity Relationship Diagram (ERD)**: `docs/ERD_v7_Final.png`
+
+## 🌱 Seeding Demo Data
+
+To seed the database with demo data, use the `seed_demo_data.py` script:
+
+   ```bash
+   python data/seed_demo_data.py
+   ```
