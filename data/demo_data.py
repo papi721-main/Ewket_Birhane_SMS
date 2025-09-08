@@ -39,24 +39,14 @@ demo_roles = [
     Role(pk=2, name="Teacher", description="A teacher in the school"),
     Role(
         pk=3,
-        name="Assistant",
-        description="A member of the school serving as an assistant for a batch",
-    ),
-    Role(
-        pk=4,
-        name="Coordinator",
-        description="A member of the school serving as a coordinator",
-    ),
-    Role(
-        pk=5,
-        name="Head",
-        description="A member of the school serving as the head of the school",
+        name="Staff",
+        description="A member of the school serving as a staff",
     ),
 ]
 
 demo_student_users = [
     User(
-        username=f"user{i}",
+        username=f"student{i}",
         password="Password#123",
         first_name=first,
         last_name=last,
@@ -167,6 +157,55 @@ demo_student_users = [
             ("Winta", "Girmay"),
             ("Zerihun", "Asmare"),
             ("Amsalu", "Negash"),
+        ]
+    )
+]
+
+demo_teacher_users = [
+    User(
+        username=f"teacher{i}",
+        password="Password#123",
+        first_name=first,
+        last_name=last,
+        date_of_birth=datetime.date(1990 + i % 10, (i % 12) + 1, (i % 28) + 1),
+        email=f"{first.lower()}.{last.lower()}@example.com",
+        phone_number=f"+251911000{i:02d}",
+        is_active=True,
+    )
+    for i, (first, last) in enumerate(
+        [
+            ("Abraham", "Mulugeta"),
+            ("Saba", "Gizachew"),
+            ("Gashaw", "Haile"),
+            ("Mulu", "Tesfahun"),
+            ("Yordanos", "Getnet"),
+            ("Asnakech", "Taddesse"),
+            ("Brook", "Kassahun"),
+            ("Yeshiwas", "Aberra"),
+            ("Wondimu", "Tesfaye"),
+            ("Martha", "Worku"),
+        ]
+    )
+]
+
+demo_staff_users = [
+    User(
+        username=f"staff{i}",
+        password="Password#123",
+        first_name=first,
+        last_name=last,
+        date_of_birth=datetime.date(1990 + i % 10, (i % 12) + 1, (i % 28) + 1),
+        email=f"{first.lower()}.{last.lower()}@example.com",
+        phone_number=f"+251911000{i:02d}",
+        is_active=True,
+    )
+    for i, (first, last) in enumerate(
+        [
+            ("Tigist", "Alemayehu"),
+            ("Mesfin", "Abebe"),
+            ("Selamawit", "Gebru"),
+            ("Fitsum", "Bekele"),
+            ("Rediet", "Hagos"),
         ]
     )
 ]
