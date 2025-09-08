@@ -1,7 +1,20 @@
 #!/usr/bin/env python3
-"""generate_data.py
+"""seed_demo_data.py
 
-This is a script for generating data using Django ORM
+This is a standalone Django script used for seeding mock data
+using Django ORM to use for development and testing purposes.
+
+The mock data is generated for the following models:
+- User (100 students, 10 teachers, 5 staff)
+- Role (3 roles)
+- User_Role (assigned roles to users)
+- User_Address (assigned addresses to users)
+- Batch (4 batches)
+- Student_Profile (assigned to student users)
+- Staff_Profile (assigned to staff users)
+- Teacher_Profile (assigned to teacher users)
+- Department (4 departments)
+- Subject (12 subjects, 3 per department)
 
 """
 
@@ -30,7 +43,6 @@ django.setup()
 
 # ---
 
-from demo_data import *
 
 # 3. Now import models
 from core.models import (
@@ -79,12 +91,23 @@ def delete_all_data():
         model.objects.all().delete()
 
 
-def create_demo_roles():
+def seed_demo_roles():
     """Removes all previous roles and create fresh roles for a demo"""
 
     # Create demo roles
     print("Creating roles")
     print("---------------")
+
+    demo_roles = [
+        Role(pk=1, name="Student", description="A student in the school"),
+        Role(pk=2, name="Teacher", description="A teacher in the school"),
+        Role(
+            pk=3,
+            name="Staff",
+            description="A member of the school serving as a staff",
+        ),
+    ]
+
     Role.objects.bulk_create(demo_roles)
 
     # Check that it worked
@@ -100,12 +123,185 @@ def create_demo_roles():
     print("---------------")
 
 
-def create_demo_users():
+def seed_demo_users():
     """Create fresh users for a demo"""
 
     # Create all users
     print("Creating users")
     print("----------------------")
+
+    demo_student_users = [
+        User(
+            username=f"student{i}",
+            password="Password#123",
+            first_name=first,
+            last_name=last,
+            date_of_birth=datetime.date(
+                1990 + i % 10, (i % 12) + 1, (i % 28) + 1
+            ),
+            email=f"{first.lower()}.{last.lower()}@example.com",
+            phone_number=f"+251911000{i:02d}",
+            is_active=True,
+        )
+        for i, (first, last) in enumerate(
+            [
+                ("Abel", "Kebede"),
+                ("Marta", "Teshome"),
+                ("Samuel", "Bekele"),
+                ("Hana", "Wolde"),
+                ("Dawit", "Abebe"),
+                ("Ruth", "Mengistu"),
+                ("Solomon", "Tesfaye"),
+                ("Sofia", "Getachew"),
+                ("Yonatan", "Demissie"),
+                ("Mahi", "Girma"),
+                ("Nahom", "Haile"),
+                ("Rahel", "Mekonnen"),
+                ("Kaleab", "Zewdu"),
+                ("Saron", "Abate"),
+                ("Binyam", "Eshete"),
+                ("Mimi", "Yohannes"),
+                ("Henok", "Tadese"),
+                ("Lily", "Alemu"),
+                ("Natnael", "Gebremariam"),
+                ("Betelhem", "Shiferaw"),
+                ("Michael", "Abera"),
+                ("Liya", "Tesfahun"),
+                ("Yonas", "Asfaw"),
+                ("Selam", "Kassahun"),
+                ("Brook", "Hailemariam"),
+                ("Tsion", "Molla"),
+                ("Bereket", "Kebede"),
+                ("Mahi", "Solomon"),
+                ("Abenezer", "Worku"),
+                ("Helen", "Yilma"),
+                ("Kalkidan", "Fikru"),
+                ("Dagmawit", "Adamu"),
+                ("Fitsum", "Gizaw"),
+                ("Eden", "Mekonnen"),
+                ("Ashenafi", "Belay"),
+                ("Meaza", "Bekele"),
+                ("Rediet", "Taye"),
+                ("Daniel", "Aberra"),
+                ("Sosina", "Mengesha"),
+                ("Robel", "Kassaye"),
+                ("Sara", "Abay"),
+                ("Biruk", "Tilahun"),
+                ("Yeshi", "Tesfaye"),
+                ("Amanuel", "Hagos"),
+                ("Tigist", "Alemayehu"),
+                ("Kebede", "Abebe"),
+                ("Mulu", "Getaneh"),
+                ("Meskerem", "Habte"),
+                ("Habtamu", "Dereje"),
+                ("Eyerusalem", "Ayalew"),
+                ("Kidus", "Haile"),
+                ("Meron", "Fekadu"),
+                ("Nahom", "Shibeshi"),
+                ("Meklit", "Endale"),
+                ("Yohannes", "Zerihun"),
+                ("Rahel", "Nigussie"),
+                ("Mikiyas", "Abayneh"),
+                ("Bethel", "Hailu"),
+                ("Henok", "Desalegn"),
+                ("Sena", "Gebru"),
+                ("Tsehay", "Mamo"),
+                ("Amare", "Eshetu"),
+                ("Blen", "Mebratu"),
+                ("Natnael", "Fisseha"),
+                ("Eleni", "Abraham"),
+                ("Hirut", "Getahun"),
+                ("Fikirte", "Lulseged"),
+                ("Sileshi", "Baye"),
+                ("Yodit", "Gebeyehu"),
+                ("Haftamu", "Tsegaye"),
+                ("Aster", "Workneh"),
+                ("Addis", "Kiros"),
+                ("Kassahun", "Belachew"),
+                ("Lemlem", "Tesfamariam"),
+                ("Mengistu", "Haftu"),
+                ("Hanna", "Guta"),
+                ("Tamrat", "Ayana"),
+                ("Tsedey", "Demeke"),
+                ("Sintayehu", "Abera"),
+                ("Frehiwot", "Mengistu"),
+                ("Kassa", "Mekuria"),
+                ("Yemisrach", "Haile"),
+                ("Taye", "Bekri"),
+                ("Nardos", "Shimelis"),
+                ("Getahun", "Assefa"),
+                ("Seble", "Yonas"),
+                ("Tesfaye", "Amanuel"),
+                ("Almaz", "Gebremedhin"),
+                ("Soliana", "Berhanu"),
+                ("Hailu", "Mekasha"),
+                ("Genet", "Yimer"),
+                ("Teodros", "Yirga"),
+                ("Senait", "Gebremichael"),
+                ("Eshetu", "Abebe"),
+                ("Hiwot", "Tekle"),
+                ("Tesfanesh", "Feyssa"),
+                ("Dagim", "Belete"),
+                ("Winta", "Girmay"),
+                ("Zerihun", "Asmare"),
+                ("Amsalu", "Negash"),
+            ]
+        )
+    ]
+
+    demo_teacher_users = [
+        User(
+            username=f"teacher{i}",
+            password="Password#123",
+            first_name=first,
+            last_name=last,
+            date_of_birth=datetime.date(
+                1990 + i % 10, (i % 12) + 1, (i % 28) + 1
+            ),
+            email=f"{first.lower()}.{last.lower()}@example.com",
+            phone_number=f"+251911000{i:02d}",
+            is_active=True,
+        )
+        for i, (first, last) in enumerate(
+            [
+                ("Abraham", "Mulugeta"),
+                ("Saba", "Gizachew"),
+                ("Gashaw", "Haile"),
+                ("Mulu", "Tesfahun"),
+                ("Yordanos", "Getnet"),
+                ("Asnakech", "Taddesse"),
+                ("Brook", "Kassahun"),
+                ("Yeshiwas", "Aberra"),
+                ("Wondimu", "Tesfaye"),
+                ("Martha", "Worku"),
+            ]
+        )
+    ]
+
+    demo_staff_users = [
+        User(
+            username=f"staff{i}",
+            password="Password#123",
+            first_name=first,
+            last_name=last,
+            date_of_birth=datetime.date(
+                1990 + i % 10, (i % 12) + 1, (i % 28) + 1
+            ),
+            email=f"{first.lower()}.{last.lower()}@example.com",
+            phone_number=f"+251911000{i:02d}",
+            is_active=True,
+        )
+        for i, (first, last) in enumerate(
+            [
+                ("Tigist", "Alemayehu"),
+                ("Mesfin", "Abebe"),
+                ("Selamawit", "Gebru"),
+                ("Fitsum", "Bekele"),
+                ("Rediet", "Hagos"),
+            ]
+        )
+    ]
+
     all_demo_users = demo_student_users + demo_staff_users + demo_teacher_users
     User.objects.bulk_create(all_demo_users)
 
@@ -172,12 +368,30 @@ def assign_demo_roles():
     print("------------------------")
 
 
-def create_demo_batches():
+def seed_demo_batches():
     """Create fresh batches for demo"""
 
     # Create demo batches
     print("Creating batches")
     print("----------------------")
+
+    demo_batches = [
+        Batch(
+            name="Grade7_2015EC", level=7, start_date=datetime.date(2015, 9, 1)
+        ),
+        Batch(
+            name="Grade8_2014EC", level=8, start_date=datetime.date(2014, 9, 1)
+        ),
+        Batch(
+            name="Grade9_2013EC", level=9, start_date=datetime.date(2013, 9, 1)
+        ),
+        Batch(
+            name="Grade10_2012EC",
+            level=10,
+            start_date=datetime.date(2012, 9, 1),
+        ),
+    ]
+
     Batch.objects.bulk_create(demo_batches)
 
     # Check that it worked
@@ -193,7 +407,7 @@ def create_demo_batches():
     print("----------------------")
 
 
-def create_demo_student_profiles():
+def seed_demo_student_profiles():
     """Creates student profiles"""
 
     print("Creating student profiles")
@@ -214,7 +428,7 @@ def create_demo_student_profiles():
     demo_batches_len = len(batches_list)
     for i, user in enumerate(student_users):
         user.student_profile = Student_Profile.objects.create(user=user)
-        user.student_profile.batch = demo_batches[i % demo_batches_len]
+        user.student_profile.batch = batches_list[i % demo_batches_len]
         user.student_profile.save()
 
     # Check that it worked
@@ -226,7 +440,7 @@ def create_demo_student_profiles():
     print("------------------------")
 
 
-def create_demo_teacher_profiles():
+def seed_demo_teacher_profiles():
     """Creates teacher profiles"""
 
     print("Creating teacher profiles")
@@ -249,7 +463,7 @@ def create_demo_teacher_profiles():
     print("------------------------")
 
 
-def create_demo_staff_profiles():
+def seed_demo_staff_profiles():
     """Creates staff profiles"""
 
     print("Creating staff profiles")
@@ -340,7 +554,9 @@ def assign_user_addresses():
     print("------------------------")
 
 
-def create_departments_and_subjects():
+def seed_departments_and_subjects():
+    """Creates departments and subjects"""
+
     # 1) Departments
     print("Creating departments")
     print("----------------------")
@@ -376,9 +592,9 @@ def create_departments_and_subjects():
         print(f"Department: {department.name} - {department.description}")
     print("----------------------")
 
-    # Fetch (including existing) for foreign-key mapping
     print("Creating subjects")
     print("----------------------")
+    # Fetch (including existing) for foreign-key mapping
     dept_map = {d.name: d for d in departments}
 
     # 2) Subjects (department_name, subject_name, description)
@@ -462,12 +678,12 @@ def create_departments_and_subjects():
 
 if __name__ == "__main__":
     delete_all_data()
-    create_demo_roles()
-    create_demo_users()
+    seed_demo_roles()
+    seed_demo_users()
     assign_demo_roles()
-    create_demo_batches()
-    create_demo_student_profiles()
-    create_demo_teacher_profiles()
-    create_demo_staff_profiles()
+    seed_demo_batches()
+    seed_demo_student_profiles()
+    seed_demo_teacher_profiles()
+    seed_demo_staff_profiles()
     assign_user_addresses()
-    create_departments_and_subjects()
+    seed_departments_and_subjects()
