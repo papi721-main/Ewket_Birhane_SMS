@@ -61,13 +61,14 @@ To address this challenge, this project aims to develop a robust Student Managem
 
 ## 📄 Documentation
 
-- **Core Models Documentation**: `docs/core_models_documentation.md`
-- **Database Design Documentation**: `docs/database_design_documentation.md`
-- **Entity Relationship Diagram (ERD)**: `docs/ERD_v7_Final.png`
+- **Core Models Documentation**: [docs/core_models_documentation.md](./docs/core_models_documentation.md)
+- **Database Design Documentation**: [docs/database_design_documentation.md](./docs/database_design_documentation.md)
+- **Entity Relationship Diagram (ERD)**: [docs/ERD_v7_Final.png](./docs/ERD_v7_Final.png)
+- **API Documentation:** [docs/api_documentation.md](./docs/api_documentation.md)
 
 ## 🌱 Seeding Demo Data
 
-To seed the database with demo data, use the `seed_demo_data.py` script:
+To seed the database with demo data, use the [seed_demo_data.py](./data/seed_demo_data.py) script:
 
    ```bash
    python data/seed_demo_data.py
