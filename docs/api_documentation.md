@@ -4,7 +4,7 @@
 
 ### 1. List All Users
 
-**Endpoint:** `GET /core/users/`
+**Endpoint:** `GET /users/`
 
 **Description:** Retrieves a list of all users.
 
@@ -40,7 +40,7 @@
 
 ### 2. Retrieve a Single User
 
-**Endpoint:** `GET /core/users/{id}/`
+**Endpoint:** `GET /users/{id}/`
 
 **Description:** Retrieves details of a specific user by ID, including their roles.
 
@@ -75,7 +75,7 @@
 
 ### 3. Create a User
 
-**Endpoint:** `POST /core/users/`
+**Endpoint:** `POST /users/`
 
 **Description:** Creates a new user. Admin-only access.
 
@@ -117,7 +117,7 @@
 
 ### 4. Update User Info
 
-**Endpoint:** `PUT /core/users/{id}/`
+**Endpoint:** `PUT /users/{id}/`
 
 **Description:** Updates the information of a specific user. Admin-only access.
 
@@ -156,7 +156,7 @@
 
 ### 5. Remove User
 
-**Endpoint:** `DELETE /core/users/{id}/`
+**Endpoint:** `DELETE /users/{id}/`
 
 **Description:** Deletes a specific user. Admin-only access.
 
@@ -180,7 +180,7 @@
 
 ### 1. List All Roles
 
-**Endpoint:** `GET /api/roles/`
+**Endpoint:** `GET /roles/`
 
 **Description:** Retrieves a list of all roles.
 
@@ -210,7 +210,7 @@
 
 ### 2. Create a Role
 
-**Endpoint:** `POST /api/roles/`
+**Endpoint:** `POST /roles/`
 
 **Description:** Creates a new role.
 
@@ -245,7 +245,7 @@
 
 ### 1. Assign Role to User
 
-**Endpoint:** `POST /api/users/{id}/roles/`
+**Endpoint:** `POST /users/{id}/roles/`
 
 **Description:** Assigns a role to a specific user.
 
@@ -276,7 +276,7 @@
 
 ### 2. Remove Role from User
 
-**Endpoint:** `DELETE /api/users/{id}/roles/{role_id}/`
+**Endpoint:** `DELETE /users/{id}/roles/{role_id}/`
 
 **Description:** Removes a role from a specific user.
 
