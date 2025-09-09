@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 from django.urls import path
 from .views import UserListCreateView, UserRetrieveUpdateDeleteView, RoleListCreateView, UserRoleAssignRemoveView, BatchListCreateView, BatchRetrieveUpdateDeleteView, DepartmentListCreateView, DepartmentRetrieveUpdateDeleteView, SubjectListCreateView, SubjectRetrieveUpdateDeleteView, UserRetrieveByUsernameView, UserManageByUsernameView
 
