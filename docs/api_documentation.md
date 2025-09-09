@@ -293,3 +293,118 @@
     "message": "Role Student removed from user user1."
 }
 ```
+
+---
+
+## Batch API
+
+### 1. List All Batches
+
+**Endpoint:** `GET /batches/`
+
+**Description:** Retrieves a list of all batches.
+
+**Response Example:**
+
+```json
+[
+    {
+        "id": 1,
+        "name": "Batch A",
+        "start_date": "2025-01-01",
+        "end_date": "2025-12-31"
+    }
+]
+```
+
+### 2. Create a Batch
+
+**Endpoint:** `POST /batches/`
+
+**Description:** Creates a new batch.
+
+**Request Body Example:**
+
+```json
+{
+    "name": "Batch A",
+    "start_date": "2025-01-01",
+    "end_date": "2025-12-31"
+}
+```
+
+---
+
+## Department API
+
+### 1. List All Departments
+
+**Endpoint:** `GET /departments/`
+
+**Description:** Retrieves a list of all departments.
+
+**Response Example:**
+
+```json
+[
+    {
+        "id": 1,
+        "name": "Computer Science",
+        "description": "The CS department."
+    }
+]
+```
+
+### 2. Create a Department
+
+**Endpoint:** `POST /departments/`
+
+**Description:** Creates a new department.
+
+**Request Body Example:**
+
+```json
+{
+    "name": "Computer Science",
+    "description": "The CS department."
+}
+```
+
+---
+
+## Subject API
+
+### 1. List All Subjects
+
+**Endpoint:** `GET /subjects/`
+
+**Description:** Retrieves a list of all subjects.
+
+**Response Example:**
+
+```json
+[
+    {
+        "id": 1,
+        "name": "Mathematics",
+        "code": "MATH101",
+        "department": 1
+    }
+]
+```
+
+### 2. Create a Subject
+
+**Endpoint:** `POST /subjects/`
+
+**Description:** Creates a new subject.
+
+**Request Body Example:**
+
+```json
+{
+    "name": "Mathematics",
+    "code": "MATH101",
+    "department": 1
+}
+```

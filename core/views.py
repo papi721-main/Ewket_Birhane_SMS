@@ -3,8 +3,8 @@ from django.shortcuts import render
 from rest_framework import generics, permissions, status
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from .models import User, Role
-from .serializers import UserSerializer, RoleSerializer
+from .models import User, Role, Batch, Department, Subject
+from .serializers import UserSerializer, RoleSerializer, BatchSerializer, DepartmentSerializer, SubjectSerializer
 
 # Create your views here.
 
@@ -47,3 +47,33 @@ class UserRoleAssignRemoveView(APIView):
         role = Role.objects.get(pk=role_id)
         user.roles.remove(role)
         return Response({'message': f'Role {role.name} removed from user {user.username}'}, status=status.HTTP_200_OK)
+
+
+class BatchListCreateView(generics.ListCreateAPIView):
+    queryset = Batch.objects.all()
+    serializer_class = BatchSerializer
+
+
+class BatchRetrieveUpdateDeleteView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Batch.objects.all()
+    serializer_class = BatchSerializer
+
+
+class DepartmentListCreateView(generics.ListCreateAPIView):
+    queryset = Department.objects.all()
+    serializer_class = DepartmentSerializer
+
+
+class DepartmentRetrieveUpdateDeleteView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Department.objects.all()
+    serializer_class = DepartmentSerializer
+
+
+class SubjectListCreateView(generics.ListCreateAPIView):
+    queryset = Subject.objects.all()
+    serializer_class = SubjectSerializer
+
+
+class SubjectRetrieveUpdateDeleteView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Subject.objects.all()
+    serializer_class = SubjectSerializer
