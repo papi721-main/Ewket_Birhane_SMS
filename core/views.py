@@ -77,3 +77,41 @@ class SubjectListCreateView(generics.ListCreateAPIView):
 class SubjectRetrieveUpdateDeleteView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Subject.objects.all()
     serializer_class = SubjectSerializer
+
+
+class UserRetrieveByUsernameView(APIView):
+    def get(self, request, username):
+        try:
+            user = User.objects.get(username=username)
+            serializer = UserSerializer(user)
+            return Response(serializer.data)
+        except User.DoesNotExist:
+            return Response({"error": "User not found"}, status=404)
+
+
+class UserManageByUsernameView(APIView):
+    def post(self, request, username):
+        serializer = UserSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def put(self, request, username):
+        try:
+            user = User.objects.get(username=username)
+            serializer = UserSerializer(user, data=request.data, partial=True)
+            if serializer.is_valid():
+                serializer.save()
+                return Response(serializer.data)
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        except User.DoesNotExist:
+            return Response({"error": "User not found"}, status=404)
+
+    def delete(self, request, username):
+        try:
+            user = User.objects.get(username=username)
+            user.delete()
+            return Response({"message": "User deleted successfully"}, status=status.HTTP_204_NO_CONTENT)
+        except User.DoesNotExist:
+            return Response({"error": "User not found"}, status=404)

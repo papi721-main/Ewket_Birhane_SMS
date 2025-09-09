@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import UserListCreateView, UserRetrieveUpdateDeleteView, RoleListCreateView, UserRoleAssignRemoveView, BatchListCreateView, BatchRetrieveUpdateDeleteView, DepartmentListCreateView, DepartmentRetrieveUpdateDeleteView, SubjectListCreateView, SubjectRetrieveUpdateDeleteView
+from .views import UserListCreateView, UserRetrieveUpdateDeleteView, RoleListCreateView, UserRoleAssignRemoveView, BatchListCreateView, BatchRetrieveUpdateDeleteView, DepartmentListCreateView, DepartmentRetrieveUpdateDeleteView, SubjectListCreateView, SubjectRetrieveUpdateDeleteView, UserRetrieveByUsernameView, UserManageByUsernameView
 
 urlpatterns = [
     path('users/', UserListCreateView.as_view(), name='user-list-create'),
@@ -13,4 +13,6 @@ urlpatterns = [
     path('departments/<int:pk>/', DepartmentRetrieveUpdateDeleteView.as_view(), name='department-retrieve-update-delete'),
     path('subjects/', SubjectListCreateView.as_view(), name='subject-list-create'),
     path('subjects/<int:pk>/', SubjectRetrieveUpdateDeleteView.as_view(), name='subject-retrieve-update-delete'),
+    path('users/username/<str:username>/', UserRetrieveByUsernameView.as_view(), name='user-retrieve-by-username'),
+    path('users/username/<str:username>/', UserManageByUsernameView.as_view(), name='user-manage-by-username'),
 ]

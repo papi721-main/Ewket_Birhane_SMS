@@ -176,6 +176,86 @@
 
 ---
 
+### 6. Retrieve a User by Username
+
+**Endpoint:** `GET /users/username/{username}/`
+
+**Description:** Retrieves details of a specific user by their username.
+
+**How to Access:**
+
+- Replace `{username}` with the username of the user.
+- Use any HTTP client (e.g., `curl`, Postman, or a browser).
+
+**Response Example:**
+
+```json
+{
+    "id": 1,
+    "username": "user1",
+    "first_name": "John",
+    "last_name": "Doe",
+    "email": "john.doe@example.com",
+    "date_of_birth": "1990-01-01",
+    "phone_number": "+1234567890",
+    "roles": [
+        {
+            "id": 1,
+            "name": "Student",
+            "description": "A student in the school."
+        }
+    ]
+}
+```
+
+---
+
+### 7. Manage a User by Username
+
+**Endpoint:** `POST /users/username/{username}/`
+
+**Description:** Creates a new user with the given username.
+
+**Request Body Example:**
+
+```json
+{
+    "username": "user1",
+    "first_name": "John",
+    "last_name": "Doe",
+    "email": "john.doe@example.com",
+    "date_of_birth": "1990-01-01",
+    "phone_number": "+1234567890"
+}
+```
+
+**Endpoint:** `PUT /users/username/{username}/`
+
+**Description:** Updates an existing user with the given username.
+
+**Request Body Example:**
+
+```json
+{
+    "first_name": "John",
+    "last_name": "Smith"
+}
+```
+
+**Endpoint:** `DELETE /users/username/{username}/`
+
+**Description:** Deletes the user with the given username.
+
+**Response Example:**
+
+```json
+{
+    "message": "User deleted successfully"
+}
+```
+
+---
+
 ## Roles API
 
 ### 1. List All Roles
