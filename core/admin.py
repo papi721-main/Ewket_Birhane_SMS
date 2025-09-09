@@ -2,9 +2,15 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 
-from .models import User
+from .models import Batch, Role, User
+
+# Customize admin page title
+admin.site.site_header = "Ewket Birhane SMS Admin"
+admin.site.site_title = "Ewket Birhane SMS Admin Portal"
+admin.site.index_title = "Student Management System Administration"
 
 
+# Customize User Admin Interface
 @admin.register(User)
 class UserAdmin(BaseUserAdmin):
     add_fieldsets = (
@@ -27,3 +33,9 @@ class UserAdmin(BaseUserAdmin):
             },
         ),
     )
+
+
+# Customize Role Admin Interface
+@admin.register(Role)
+class RoleAdmin(admin.ModelAdmin):
+    list_display = ["name", "description", "created_at", "modified_at"]

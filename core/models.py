@@ -101,8 +101,11 @@ class Role(models.Model):
         settings.AUTH_USER_MODEL, through="User_Role", related_name="roles"
     )
 
+    class Meta:
+        ordering = ["name"]
+
     def __str__(self):
-        return f"Role: {self.name}"
+        return f"{self.name}"
 
 
 class User_Role(models.Model):
