@@ -4,7 +4,17 @@ import datetime
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 
-from .models import Batch, Role, User
+from .models import (
+    Batch,
+    Course,
+    Department,
+    Role,
+    Subject,
+    User,
+    Student_Profile,
+    Teacher_Profile,
+    Staff_Profile,
+)
 
 # Customize admin page title
 admin.site.site_header = "Ewket Birhane SMS Admin"
@@ -79,3 +89,69 @@ class UserAdmin(BaseUserAdmin):
 @admin.register(Role)
 class RoleAdmin(admin.ModelAdmin):
     list_display = ["name", "description", "created_at", "modified_at"]
+
+
+# Customize Batch Admin Interface
+@admin.register(Batch)
+class BatchAdmin(admin.ModelAdmin):
+    list_display = ["name", "level", "start_date", "end_date", "description"]
+    list_editable = ["level", "start_date", "end_date"]
+    search_fields = ["name", "description"]
+    list_filter = ["level", "start_date"]
+
+
+# Customize Department Admin Interface
+@admin.register(Department)
+class DepartmentAdmin(admin.ModelAdmin):
+    list_display = ["name", "description", "created_at", "modified_at"]
+    list_editable = ["description"]
+    search_fields = ["name", "description"]
+
+
+# Customize Subject Admin Interface
+@admin.register(Subject)
+class SubjectAdmin(admin.ModelAdmin):
+    list_display = ["name", "department", "description", "created_at", "modified_at"]
+    list_editable = ["department", "description"]
+    search_fields = ["name", "description"]
+    list_filter = ["department"]
+
+
+# Customize Course Admin Interface
+@admin.register(Course)
+class CourseAdmin(admin.ModelAdmin):
+    list_display = ["subject", "teacher", "batch", "semester", "year", "description"]
+    list_editable = ["teacher", "batch", "semester", "year"]
+    search_fields = ["subject__name", "description"]
+    list_filter = ["semester", "year", "batch"]
+    autocomplete_fields = ["subject", "teacher", "batch", "staff"]
+
+
+# Customize Student_Profile Admin Interface
+@admin.register(Student_Profile)
+class StudentProfileAdmin(admin.ModelAdmin):
+    list_display = ["user", "batch", "joined_at"]
+    list_editable = ["batch", "joined_at"]
+    search_fields = ["user__username", "batch__name"]
+    list_filter = ["batch"]
+    autocomplete_fields = ["user", "batch"]
+
+
+# Customize Teacher_Profile Admin Interface
+@admin.register(Teacher_Profile)
+class TeacherProfileAdmin(admin.ModelAdmin):
+    list_display = ["user", "start_date", "remarks"]
+    list_editable = ["start_date", "remarks"]
+    search_fields = ["user__username", "remarks"]
+    list_filter = ["start_date"]
+    autocomplete_fields = ["user"]
+
+
+# Customize Staff_Profile Admin Interface
+@admin.register(Staff_Profile)
+class StaffProfileAdmin(admin.ModelAdmin):
+    list_display = ["user", "start_date", "remarks"]
+    list_editable = ["start_date", "remarks"]
+    search_fields = ["user__username", "remarks"]
+    list_filter = ["start_date"]
+    autocomplete_fields = ["user"]
